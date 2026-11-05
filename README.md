@@ -180,9 +180,9 @@ the entry. Main keys (press `?` inside the program for the complete list):
 | `S`                  | settings                                        |
 | `q`                  | quit                                            |
 
-The mouse wheel works also, and you can click in the contents and on the links (in
-blue). The links to other entries open in the program; the others (Wikipedia, the
-appendices of Wiktionary, other dictionaries…) in the web browser.
+The mouse wheel works also, and you can click in the contents and on the links (in blue).
+The links to other entries open in the program, at the top of the entry; the others
+(Wikipedia, the appendices of Wiktionary, other dictionaries…) in the web browser.
 
 ## Desktop window: `py-wtk-gui`
 
@@ -193,9 +193,10 @@ py-wtk-gui rosa --dark --size 13       # dark and bigger only this time (--light
 ```
 
 - Search box with suggestions while you write (arrow down to choose one).
-- **Click on a link for open it.** The links to other entries open in the window, in the
-  language of the link; the others (Wikipedia, the appendices of Wiktionary, other
-  dictionaries…) in the web browser. The status line says where a link goes.
+- **Click on a link for open it.** The links to other entries open in the window, at the
+  top of the entry and with the languages of the filter; the others (Wikipedia, the
+  appendices of Wiktionary, other dictionaries…) in the web browser. The status line
+  says where a link goes.
 - **Double-click on any word of the entry for look it up.** The right button gives a menu
   with "Look up", "Copy" and "Select all".
 - Contents tree: click on a section for go there; it follows you when you scroll.

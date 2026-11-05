@@ -45,9 +45,9 @@ pedir una vista breve con solo las definiciones.
 
 ## Funciones principales
 
-- **Enlaces que funcionan.** Un enlace a otra entrada la abre en el programa, en la lengua
-  correspondiente; los demás (Wikipedia, apéndices, otros diccionarios) se abren en el
-  navegador. En la línea de comandos son hipervínculos de la terminal.
+- **Enlaces que funcionan.** Un enlace a otra entrada la abre en el programa, con todas
+  las lenguas del filtro; los demás (Wikipedia, apéndices, otros diccionarios) se abren
+  en el navegador. En la línea de comandos son hipervínculos de la terminal.
 - **Búsqueda y sugerencias.** Se pueden buscar títulos de páginas; si una palabra no
   existe, se proponen otras parecidas. La ventana sugiere palabras mientras se escribe.
 - **Navegación.** Índice por lenguas y secciones, búsqueda dentro de la página, historial
@@ -96,7 +96,7 @@ partir de un único SVG.
 
 ## Estado
 
-La versión actual es la **1.4** (véanse en [NOTES.es.md](NOTES.es.md) los cambios de cada
+La versión actual es la **1.5** (véanse en [NOTES.es.md](NOTES.es.md) los cambios de cada
 versión). La interfaz de los programas está en inglés; la documentación, en inglés y en
 español. Las versiones anteriores del proyecto se llamaban *py-wkt*; sus ajustes se
 trasladan automáticamente.

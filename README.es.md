@@ -182,8 +182,9 @@ Teclas principales (pulsa `?` dentro del programa para ver la lista completa):
 | `q`                  | salir                                           |
 
 También funciona la rueda del ratón, y se puede hacer clic en el índice y en los enlaces
-(en azul). Los enlaces a otras entradas se abren en el programa; los demás (Wikipedia, los
-apéndices del Wiktionary, otros diccionarios…), en el navegador.
+(en azul). Los enlaces a otras entradas se abren en el programa, al principio de la
+entrada; los demás (Wikipedia, los apéndices del Wiktionary, otros diccionarios…), en el
+navegador.
 
 ## Ventana de escritorio: `py-wtk-gui`
 
@@ -194,9 +195,10 @@ py-wtk-gui rosa --dark --size 13       # oscuro y más grande solo esta vez (tam
 ```
 
 - Cuadro de búsqueda con sugerencias mientras escribes (flecha abajo para elegir una).
-- **Clic en un enlace para abrirlo.** Los enlaces a otras entradas se abren en la ventana,
-  en la lengua del enlace; los demás (Wikipedia, los apéndices del Wiktionary, otros
-  diccionarios…), en el navegador. La barra de estado dice adónde lleva cada enlace.
+- **Clic en un enlace para abrirlo.** Los enlaces a otras entradas se abren en la
+  ventana, al principio de la entrada y con las lenguas del filtro; los demás
+  (Wikipedia, los apéndices del Wiktionary, otros diccionarios…), en el navegador. La
+  barra de estado dice adónde lleva cada enlace.
 - **Doble clic en cualquier palabra de la entrada para buscarla.** El botón derecho abre un
   menú con «Look up», «Copy» y «Select all».
 - Índice en árbol: haz clic en una sección para ir a ella; se actualiza al desplazarte.

@@ -44,9 +44,9 @@ definitions.
 
 ## Main features
 
-- **Links that work.** A link to another entry opens it in the program, at the right
-  language; other links (Wikipedia, appendices, other dictionaries) open in the browser.
-  In the command line they are terminal hyperlinks.
+- **Links that work.** A link to another entry opens it in the program, with all the
+  languages of the filter; other links (Wikipedia, appendices, other dictionaries) open
+  in the browser. In the command line they are terminal hyperlinks.
 - **Search and suggestions.** Search page titles; if a word does not exist, similar words
   are proposed. The window suggests words while you type.
 - **Navigation.** A table of contents by language and section, find in the page, history
@@ -94,7 +94,7 @@ Codeberg, take the screenshots of the README, and regenerate all the icons from 
 
 ## Status
 
-The current version is **1.4** (see [NOTES.md](NOTES.md) for the changes of each version).
+The current version is **1.5** (see [NOTES.md](NOTES.md) for the changes of each version).
 The interfaces of the programs are in English; the documentation is in English and Spanish.
 Earlier versions of the project were called *py-wkt*; their settings are carried over
 automatically.

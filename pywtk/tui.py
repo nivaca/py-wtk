@@ -257,7 +257,7 @@ class App:
             self.jump_line(line)
 
     def follow(self, url: str):
-        """Open the entry URL leads to (at its language), or, if it leads out
+        """Open the entry URL leads to (at its top), or, if it leads out
         of the entries of Wiktionary, open it in the browser."""
         target = entry_target(url)
         if target is None:
@@ -269,7 +269,9 @@ class App:
                 self.goto_language(language)
                 self.sync_toc()
         else:
-            self.open(word, language=language)
+            # (at the top, with the languages of the filter, not at the
+            # language of the link)
+            self.open(word)
 
     def choose_link(self):
         """A list of the links on the screen, to open one."""

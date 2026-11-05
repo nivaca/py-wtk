@@ -989,7 +989,7 @@ class App:
             self.follow(link[2])
 
     def follow(self, url: str):
-        """Open the entry URL leads to (at its language), or, if it leads out
+        """Open the entry URL leads to (at its top), or, if it leads out
         of the entries of Wiktionary, open it in the browser."""
         target = entry_target(url)
         if target is None:
@@ -1001,7 +1001,9 @@ class App:
             if language:
                 self.goto_language(language)
         else:
-            self.open(word, language=language)
+            # (at the top, with the languages of the filter, not at the
+            # language of the link)
+            self.open(word)
 
     def goto_language(self, language: str):
         """Scrolls to the heading of LANGUAGE, if the entry shows it."""

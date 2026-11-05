@@ -1,5 +1,13 @@
 # Notas de las versiones
 
+## 1.5
+
+**Los enlaces abren la entrada al principio.** Un enlace a otra entrada la abre ahora al
+principio, con todas las lenguas del filtro (con `all`, todas las lenguas de la página),
+en la ventana y en la interfaz de terminal. Antes saltaba a la lengua del enlace
+(`rosa#Latin` bajaba hasta el latín), y parecía que la lengua había cambiado. Un enlace a
+otra parte de la misma entrada sigue llevando allí.
+
 ## 1.4
 
 **Error corregido.** `py-wtk --set NOMBRE=VALOR` y `py-wtk --unset NOMBRE` fallaban con

@@ -1,5 +1,13 @@
 # Release notes
 
+## 1.5
+
+**Links open the entry at the top.** A link to another entry now opens it at the top,
+with all the languages of the filter (with `all`, every language of the page), in the
+window and in the terminal interface. Before, it jumped to the language of the link
+(`rosa#Latin` scrolled to Latin), and it seemed that the language had changed. A link
+to another part of the same entry still goes there.
+
 ## 1.4
 
 **Bug fixed.** `py-wtk --set NAME=VALUE` and `py-wtk --unset NAME` failed with an error
