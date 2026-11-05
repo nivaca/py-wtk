@@ -1,0 +1,11 @@
+# What is made while the program runs or is edited
+__pycache__/
+*.pyc
+*.bak
+*.tmp
+*~
+.DS_Store
+# The bundles (tools/bundle-zip.py, tools/bundle-appimage.py)
+dist/
+# Written into the bundles only (pywtk/version.py reads it)
+/COMMIT

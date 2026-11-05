@@ -1,0 +1,17 @@
+#!/usr/bin/env python3
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Copyright (C) 2026 Nicolas Vaughan <nivaca@fastmail.com>
+# This file is part of py-wtk. See the LICENSE file for details.
+"""Launcher for py-wtk-gui; the code lives in the pywtk package next to this file."""
+import os
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.realpath(__file__)))
+
+from pywtk.version import check_python  # noqa: E402
+
+check_python()          # (before the modules that need a recent Python)
+
+from pywtk.gui import run  # noqa: E402
+
+run()
