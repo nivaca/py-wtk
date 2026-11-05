@@ -18,7 +18,7 @@ conjugations), synonyms, derived and related terms, descendants, translations, r
 and further reading. By default it shows **all the languages** of the page, but you can
 choose only the ones you need, for example only Latin, or Latin and Spanish.
 
-I am Nicolas Vaughan (<nivaca@fastmail.com> and <n.vaughan@uniandes.edu.co>), and I wrote
+I am Nicolás Vaughan (<nivaca@fastmail.com> and <n.vaughan@uniandes.edu.co>), and I wrote
 it in 2026.
 
 [Nicolas Vaughan](https://artehum.uniandes.edu.co/profesores/nicolas-vaughan/) is Associate

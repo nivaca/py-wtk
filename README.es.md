@@ -17,7 +17,7 @@ conjugaciones), sinónimos, términos derivados y relacionados, descendientes, t
 referencias y lecturas adicionales. Por defecto muestra **todas las lenguas** de la página,
 pero se pueden elegir solo las que interesan; por ejemplo, solo latín, o latín y español.
 
-Lo escribí yo, Nicolas Vaughan (<nivaca@fastmail.com> y <n.vaughan@uniandes.edu.co>), en
+Lo escribí yo, Nicolás Vaughan (<nivaca@fastmail.com> y <n.vaughan@uniandes.edu.co>), en
 2026.
 
 [Nicolas Vaughan](https://artehum.uniandes.edu.co/profesores/nicolas-vaughan/) es profesor
