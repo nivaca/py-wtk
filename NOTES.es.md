@@ -8,6 +8,13 @@ y nada más: una entrada del mismo nombre que no escribió él (una sin el icono
 se deja como está, y lo mismo los enlaces. `--only-gui` sigue la misma regla cuando quita
 las entradas de la versión de terminal y de la línea de comandos.
 
+**Error corregido: caracteres extraños en la línea de comandos.** Cuando una entrada larga
+se abría en un paginador distinto de `less` (por ejemplo `PAGER=most`), sus enlaces
+aparecían como caracteres extraños, del tipo `^[]8;;`. Solo `less` puede mostrar estos
+enlaces, así que con cualquier otro paginador la entrada se muestra ahora sin ellos,
+conservando sus colores. La captura de la línea de comandos del README también mostraba
+estos caracteres; se ha tomado de nuevo.
+
 ## 1.5
 
 **Los enlaces abren la entrada al principio.** Un enlace a otra entrada la abre ahora al

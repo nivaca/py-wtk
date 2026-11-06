@@ -26,6 +26,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import shlex
 import shutil
 import subprocess
@@ -47,11 +48,27 @@ def term_width(max_width: int) -> int:
     return min(shutil.get_terminal_size((80, 24)).columns - 1, max_width)
 
 
+#  An OSC 8 hyperlink marker (Style.link), ended by ST or BEL
+OSC8_RE = re.compile(r"\033\]8;[^\033\a]*(?:\033\\|\a)")
+
+
+def pager_shows_links(pager: str) -> bool:
+    """Whether PAGER passes OSC 8 hyperlinks through: only less does (with
+    -R); others, such as most and more, show them as stray characters."""
+    try:
+        words = shlex.split(pager)
+    except ValueError:
+        return False
+    return bool(words) and os.path.basename(words[0]) == "less"
+
+
 def page_output(text: str, mode: str, command: str = ""):
     """mode: 'auto' (page if it does not fit), 'always' or 'never'."""
     rows = shutil.get_terminal_size((80, 24)).lines
     if mode == "always" or (mode == "auto" and text.count("\n") + 1 > rows - 1):
         pager = command or os.environ.get("PAGER") or "less"
+        if not pager_shows_links(pager):
+            text = OSC8_RE.sub("", text)
         env = dict(os.environ)
         env.setdefault("LESS", "FRX")
         try:

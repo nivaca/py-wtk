@@ -320,6 +320,8 @@ def tui(word: str, lang: str, out: str, scale: float):
 
 
 SGR = re.compile(r"\x1b\[([0-9;]*)m")
+#  Other codes that are not drawn, such as OSC 8 hyperlinks (ended by ST or BEL)
+OSC = re.compile(r"\x1b\][^\x07\x1b]*(?:\x07|\x1b\\)")
 
 
 def styled(text: str) -> list[tuple[str, tuple]]:
@@ -391,6 +393,7 @@ def _colour256(n: int) -> str:
 def draw(screen: str, columns: int, out: str, scale: float, folder: str):
     """The screen of a terminal (with its colours) as an image: written as a
     web page, which Chrome takes."""
+    screen = OSC.sub("", screen)        # (tmux -e keeps the hyperlinks)
     lines = screen.rstrip("\n").split("\n")
     while lines and not SGR.sub("", lines[-1]).strip():      # (the empty end)
         lines.pop()

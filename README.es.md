@@ -146,8 +146,10 @@ Si la palabra no existe, el programa propone palabras parecidas. Si la entrada n
 pantalla, se abre en `less` (o en tu `$PAGER`).
 
 Los enlaces de la entrada son hipervínculos: en los terminales que los admiten (casi todos
-los modernos, y `less`) se puede hacer clic en ellos, normalmente con `Ctrl` pulsado. Si tu
-terminal los muestra como caracteres extraños, desactiva el ajuste `cli.links`.
+los modernos, y `less`) se puede hacer clic en ellos, normalmente con `Ctrl` pulsado. Otros
+paginadores (como `most` o `more`) no pueden mostrarlos, así que en ellos la entrada se
+muestra sin enlaces. Si tu terminal los muestra como caracteres extraños, desactiva el
+ajuste `cli.links`.
 
 El código de salida es `0` si todo va bien, `1` si no se encontró nada y `2` si hubo un
 error de red.

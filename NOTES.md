@@ -8,6 +8,12 @@ made, and nothing else: an entry of the same name that it did not write (one wit
 program's icon) is left alone, and so are links. `--only-gui` follows the same rule when it
 removes the entries of the terminal version and the command line.
 
+**Bug fixed: stray characters in the command line.** When a long entry was opened in a
+pager other than `less` (for example `PAGER=most`), its links showed up as stray
+characters such as `^[]8;;`. Only `less` can show these links, so with any other pager the
+entry is now shown without them, keeping its colours. The screenshot of the command line in
+the README showed these characters too; it has been taken again.
+
 ## 1.5
 
 **Links open the entry at the top.** A link to another entry now opens it at the top,

@@ -146,8 +146,9 @@ proposes similar words. When the entry is longer than the screen, it is opened i
 (or in your `$PAGER`).
 
 The links of the entry are hyperlinks: in the terminals that know them (most of the modern
-ones, and `less`) you can click them, usually with `Ctrl` pressed. If your terminal shows
-them as stray characters, turn off the setting `cli.links`.
+ones, and `less`) you can click them, usually with `Ctrl` pressed. Other pagers (such as
+`most` or `more`) can't show them, so in those the entry is shown without links. If your
+terminal shows them as stray characters, turn off the setting `cli.links`.
 
 The exit code is `0` if all is fine, `1` if nothing was found and `2` for network errors.
 
