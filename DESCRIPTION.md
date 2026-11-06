@@ -1,112 +1,176 @@
-# py-wtk: a description of the project
+How py-wtk was made
+===================
 
 *[Leer en español](DESCRIPCIÓN_es.md)*
 
-## What it is
+py-wtk is a small program for reading the English Wiktionary
+(<https://en.wiktionary.org>) without a web browser.  You give it a word
+or an expression in any language, and it shows the whole Wiktionary
+entry, cleanly formatted, in the terminal or in a desktop window.
+Nicolas Vaughan made it in 2026.  Earlier versions were called *py-wkt*;
+the current version is 1.6.  Here I explain how it was made, in six
+stages.
 
-py-wtk is a small, free program for reading the
-[English Wiktionary](https://en.wiktionary.org) without a web browser. You give it a word
-or an expression in any language, and it shows the whole Wiktionary entry, cleanly
-formatted, in the terminal or in a desktop window.
+It is meant for people who look up words often: students and teachers
+of languages (Latin, Greek, Spanish, English ...), translators,
+philologists, and anyone who wants the information of Wiktionary without
+the clutter and the slowness of the web page.  py-wtk is free software,
+under the GNU General Public License, version 3 or later.  The content
+of the entries comes from Wiktionary and its contributors, under the
+CC BY-SA 4.0 licence; py-wtk only displays it, and it is not an official
+project of Wiktionary or of the Wikimedia Foundation.
 
-It is meant for people who look up words often: students and teachers of languages
-(Latin, Greek, Spanish, English…), translators, philologists, and anyone who wants
-Wiktionary's information without the clutter and the slowness of the web page.
+Nicolas Vaughan is Associate Professor of Literature at the School of Arts
+and Humanities of the Universidad de los Andes, Bogotá, Colombia.
 
-Nicolas Vaughan (<nivaca@fastmail.com>, <n.vaughan@uniandes.edu.co>) made it in 2026.
-Nicolas Vaughan is Associate Professor of Literature at the School of Arts and Humanities of the
-Universidad de los Andes, Bogotá, Colombia.
+1. From HTML to text
+--------------------
 
-## Three programs, one core
+Wiktionary gives each page in HTML through its REST API
+(`/api/rest_v1/page/html/...`).  py-wtk downloads that HTML and converts
+it to text by itself, with the standard library only: `urllib` for the
+download, `html.parser` for reading the page into a small tree
+(`dom.py`), and `textwrap` for the lines.  The page is then cut into its
+languages and their sections (`entry.py`): etymology, pronunciation,
+definitions with examples and dated quotations, usage notes, inflection
+tables, synonyms, derived and related terms, descendants, translations,
+references and further reading.
 
-py-wtk comes in three forms, which share the same code underneath and the same settings:
+The inflection tables (declensions and conjugations) are kept aligned,
+with the width that each character really takes in the terminal
+(`text.py`).  The big entries, like *house*, keep their translations in a
+separate page (`house/translations`); py-wtk downloads that page too and
+puts the translations back in their place.
 
-| Program      | Kind                        | Good for                                       |
-|--------------|-----------------------------|------------------------------------------------|
-| `py-wtk`     | command line                | a quick look-up, scripts, JSON output for other programs |
-| `py-wtk-tui` | full-screen terminal (curses) | reading long entries and browsing from word to word in the terminal |
-| `py-wtk-gui` | desktop window (Tkinter)    | everyday use with the mouse, in light or dark mode |
-
-Because the three programs turn an entry into text with the same code, an entry looks the
-same, and contains the same things, in all of them.
-
-## What it shows
-
-Not only the definitions, but the full entry: etymology, pronunciation, definitions with
-examples and dated quotations, usage notes, inflection tables (declensions and
-conjugations, kept aligned), synonyms, derived and related terms, descendants,
-translations, references and further reading.
-
-A Wiktionary page usually has many languages. py-wtk shows all of them by default, but you
-can choose only the ones you care about (`-l la`, or `-l la,es,it`), put some first, show
-only some sections (`-o etymology`), hide others, or ask for a brief view with only the
+A page of Wiktionary usually has many languages.  py-wtk shows all of
+them by default, but the user can choose only some (`-l la`, or
+`-l la,es,it`), put some first, show only some sections
+(`-o etymology`), hide others, or ask for a brief view with only the
 definitions.
 
-## Main features
+2. Three programs, one renderer
+-------------------------------
 
-- **Links that work.** A link to another entry opens it in the program, with all the
-  languages of the filter; other links (Wikipedia, appendices, other dictionaries) open
-  in the browser. In the command line they are terminal hyperlinks.
-- **Search and suggestions.** Search page titles; if a word does not exist, similar words
-  are proposed. The window suggests words while you type.
-- **Navigation.** A table of contents by language and section, find in the page, history
-  with back and forward, double-click on any word to look it up (in the window).
-- **Shared settings.** One `config.toml` file for the three programs, which can be edited
-  from the command line, from a settings screen in the terminal interface, from a
-  settings window in the GUI, or by hand.
-- **Disk cache.** Downloaded pages are kept compressed for a day (configurable), so looking
-  up the same word again is instant and does not load Wiktionary's servers.
-- **Polite with Wiktionary.** When Wiktionary answers "Too Many Requests", the program
-  waits and tries again by itself.
-- **Machine-readable output.** `py-wtk --json` gives the entry as structured JSON.
+py-wtk comes in three forms: a command line (`py-wtk`), a full-screen
+terminal interface (`py-wtk-tui`, with `curses`), and a desktop window
+(`py-wtk-gui`, with Tk, from the standard library).  All three turn an
+entry into text with the same code (`render.py`), so an entry looks the
+same, and contains the same things, in all of them.  The command line
+can give the entry also as structured JSON (`--json`), for other
+programs, and it has an interactive mode (`-i`) that asks for one word
+after another.
 
-## How it is built
+The two full-screen programs add what is needed for reading long
+entries: a table of contents by language and section, find in the page,
+a history with Back and Forward, and reload.  The window has a light and
+a dark look (`gui_theme.py`), adjustable fonts (`gui_fonts.py`), and
+suggestions while you type; a double click on any word looks it up.  If
+a word does not exist, similar words are proposed, and the titles of the
+pages can be searched.
 
-- **Python 3.11 or later, and nothing else.** Only the standard library is used
-  (`urllib`, `html.parser`, `textwrap`, `curses`, `tkinter`, `tomllib`): no packages to
-  install with pip. The window needs Tkinter, which some Linux distributions ship
-  separately.
-- **Data source.** Pages are downloaded as HTML from the Wiktionary REST API and converted
-  to text by the program itself. For big entries whose translations live in a separate
-  page (such as *house/translations*), that page is downloaded too and the translations
-  are put back in their place.
-- **Organisation.** The package `pywtk/` is split into layers: downloading and cache
-  (`api.py`), HTML parsing (`dom.py`), text and colours (`text.py`), languages and sections
-  (`entry.py`), rendering an entry to text or JSON (`render.py`), settings (`config.py`,
-  `settings.py`), what the three programs share (`common.py`), and one module for each
-  interface (`cli.py`, `tui.py`, `gui.py`, with `gui_theme.py` and `gui_fonts.py`). In
-  total, about 5,000 lines of Python.
-- **Cross-platform.** It runs on Linux, macOS and Windows, and uses the usual settings and
-  cache folders of each system.
+3. Settings and cache
+---------------------
 
-## Distribution
+The three programs share one settings file, `config.toml`, in the usual
+settings folder of each system (`~/.config/py-wtk/` in Linux).  It can
+be edited from the command line (`--set`, `--unset`), from a settings
+screen in the terminal interface, from a settings window in the GUI, or
+by hand.  `settings.py` says, in one place, what each setting is, its
+type and its default value.  The programs write in the file only the
+settings that you change, over the file as it is in that moment, so if
+the window and the terminal interface are open at the same time, one
+does not undo the changes of the other.
 
-- An **AppImage** for Linux, which carries its own Python: download, make it executable,
-  run.
-- A **zip** (or a clone of the repository) for any system with Python 3.11+, with three
-  small launchers to link into the `PATH`.
-- `py-wtk-install.py` adds the programs, with their icon, to the applications menu on
-  Linux, the Start menu on Windows or `~/Applications` on macOS, without administrator
-  rights.
+The versions called *py-wkt* kept their settings in another folder,
+first in a `settings.ini` and then in a `config.toml`.  py-wtk reads
+them one time, takes them to the new folder and renames the old file
+`*.old`.
 
-The scripts in `tools/` make the zip and the AppImage, publish releases on GitHub and
-Codeberg, take the screenshots of the README, and regenerate all the icons from one SVG.
+The downloaded pages are kept compressed in the cache folder of the
+system for one day (`general.cache_days`), so looking up the same word
+again is instant and does not load the servers of Wiktionary.  When
+Wiktionary answers "Too Many Requests" (or is busy for a moment), the
+program waits, as long as the answer asks if it says so, and tries again
+by itself.
 
-## Status
+4. Links
+--------
 
-The current version is **1.6** (see [NOTES.md](NOTES.md) for the changes of each version).
-The interfaces of the programs are in English; the documentation is in English and Spanish.
-Earlier versions of the project were called *py-wkt*; their settings are carried over
-automatically.
+In 1.2 the links of an entry started to work in the three programs.  A
+link to another entry opens it in the program; the other links
+(Wikipedia, the appendices of Wiktionary, other dictionaries) open in
+the web browser.  Links to pages that do not exist yet, footnotes and
+edit links are not clickable.
 
-## Licence and credits
+In the window the links have the colour of links and get underlined
+under the mouse, and dragging over one selects the text without opening
+it.  In the terminal interface they are blue, a click opens them, and
+the key `L` lists the links on the screen, for opening one with the
+keyboard.  In the command line they are terminal hyperlinks (OSC 8),
+which most modern terminals and `less` make clickable; they are written
+only with colours, so `--json`, `--no-color` and the output to other
+programs do not change.
 
-py-wtk is free software under the [GNU General Public License](LICENSE), version 3 or
-later. Copyright © 2026 Nicolas Vaughan.
+Two corrections came later.  In 1.5, a link to another entry opens it
+at the top, with all the languages of the filter: before, it jumped to
+the language of the link, and it seemed that the filter had changed.
+In 1.6, a long entry opened in a pager other than `less` (for example
+`PAGER=most`) showed its links as stray characters such as `^[]8;;`.
+Only `less` can show these links, so with any other pager the entry is
+now shown without them, keeping its colours.
 
-The content of the entries comes from Wiktionary and its contributors, under the
-[CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) licence; py-wtk only
-displays it. py-wtk is not an official project of Wiktionary or of the Wikimedia
-Foundation.
+5. Distribution
+---------------
 
-For installation and full usage instructions, see the [README](README.md).
+py-wtk needs Python 3.11 or later (for `tomllib`) and nothing else, so
+it can be used from a zip or a clone of the repository, with three small
+launchers to link into the `PATH`.  For Linux there is also an AppImage,
+which carries its own Python: download, make it executable, run.  A
+small module, `version.py`, is read before the rest of the program, and
+it stays readable by old versions of Python, so a Python too old gets a
+clear message instead of an error.
+
+`py-wtk-install.py` adds the programs, with their icon, to the
+applications menu in Linux, the Start menu in Windows or
+`~/Applications` in macOS, writing only in the folders of the user, so
+no administrator rights are needed.  `--only-gui` adds only the window,
+and `--uninstall` removes the entries and the icons that the installer
+made, and nothing else.
+
+The scripts in `tools/` make the zip and the AppImage, publish the
+releases on GitHub and Codeberg, take the screenshots of the README, and
+make all the icons again from one SVG.  The zip and the AppImage carry
+the commit they were made from, which `--version` and *About* show.
+
+6. One place for what is shared
+-------------------------------
+
+At first each program had its own copy of several things: the history
+of Back and Forward, the handling of the links, the messages, the disk
+cache, the common options.  In 1.4 they went to one module,
+`common.py`, so the three programs say the same thing in the same way
+("2 pages, 192.7 KB" everywhere, the same message for a language that
+the page does not have, the same message for a network error).  The
+entries are shown exactly as before.
+
+The package `pywtk/` has now 16 modules, organised in layers:
+downloading and cache (`api.py`), HTML parsing (`dom.py`), text and
+colours (`text.py`), languages and sections (`entry.py`), rendering to
+text or JSON (`render.py`), settings (`config.py`, `settings.py`), what
+the three programs share (`common.py`), and one module for each
+interface (`cli.py`, `tui.py`, `gui.py`, with `gui_theme.py` and
+`gui_fonts.py`).  In total, around 5,200 lines of Python.
+
+Testing
+-------
+
+The program was tested with Python 3.11 (the oldest it supports) and
+with Python 3.15, in Linux.  `tools/screenshots.py` runs the three
+programs as a user does (the window in light and dark mode), with
+settings and a cache of their own, and the screenshots of the README
+come from it; they were checked by eye, and in 1.6 they were taken
+again.  There are not yet automated tests.
+
+For installation and full usage instructions, see the
+[README](README.md); the changes of each version are in
+[NOTES.md](NOTES.md).
