@@ -96,7 +96,7 @@ partir de un único SVG.
 
 ## Estado
 
-La versión actual es la **1.5** (véanse en [NOTES.es.md](NOTES.es.md) los cambios de cada
+La versión actual es la **1.6** (véanse en [NOTES.es.md](NOTES.es.md) los cambios de cada
 versión). La interfaz de los programas está en inglés; la documentación, en inglés y en
 español. Las versiones anteriores del proyecto se llamaban *py-wkt*; sus ajustes se
 trasladan automáticamente.

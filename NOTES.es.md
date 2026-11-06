@@ -1,5 +1,13 @@
 # Notas de las versiones
 
+## 1.6
+
+**Desinstalar quita solo lo que añadió el instalador.** `py-wtk-install.py --uninstall`
+quita del menú de aplicaciones los archivos `.desktop` y los iconos que hizo el instalador,
+y nada más: una entrada del mismo nombre que no escribió él (una sin el icono del programa)
+se deja como está, y lo mismo los enlaces. `--only-gui` sigue la misma regla cuando quita
+las entradas de la versión de terminal y de la línea de comandos.
+
 ## 1.5
 
 **Los enlaces abren la entrada al principio.** Un enlace a otra entrada la abre ahora al

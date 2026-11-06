@@ -17,8 +17,8 @@ it asks for one word after another).  With --only-gui, only the window's
 * macOS: three small applications in ~/Applications.
 
 Everything goes in the user's own folders, so no administrator rights are
-needed.  Run it again after moving this folder; --uninstall removes
-everything it added.
+needed.  Run it again after moving this folder; --uninstall removes the
+entries and icons it added, and nothing else.
 """
 
 import os
@@ -170,13 +170,32 @@ def install_linux(chosen: list[tuple]) -> list[str]:
     return paths
 
 
+def is_our_entry(path: str) -> bool:
+    """Whether PATH is a .desktop file this script made (a regular file,
+    not a link, with our icon)."""
+    if not path.endswith(".desktop") or os.path.islink(path) \
+            or not os.path.isfile(path):
+        return False
+    try:
+        with open(path, encoding="utf-8") as f:
+            lines = f.read().splitlines()
+    except (OSError, UnicodeDecodeError):
+        return False
+    return bool(lines) and lines[0] == "[Desktop Entry]" \
+        and f"Icon={APP_ID}" in lines
+
+
 def uninstall_linux(chosen: list[tuple], icons: bool = True) -> list[str]:
-    """Removes the entries of CHOSEN, and (with ICONS) the icons."""
-    theme = os.path.join(data_home(), "icons", "hicolor")
-    paths = [entry_path(kind) for kind, _, _, _ in chosen]
+    """Removes the .desktop files of CHOSEN and (with ICONS) the icons, and
+    nothing else: only the files this script made."""
+    paths = [path for path in (entry_path(kind) for kind, _, _, _ in chosen)
+             if is_our_entry(path)]
     if icons:
-        paths = [os.path.join(theme, rel) for _, rel in icon_files()] + paths
-    removed = remove([path for path in paths if os.path.isfile(path)])
+        theme = os.path.join(data_home(), "icons", "hicolor")
+        paths = [path for path in (os.path.join(theme, rel)
+                                   for _, rel in icon_files())
+                 if os.path.isfile(path) and not os.path.islink(path)] + paths
+    removed = remove(paths)
     refresh_linux()
     return removed
 

@@ -94,7 +94,7 @@ Codeberg, take the screenshots of the README, and regenerate all the icons from 
 
 ## Status
 
-The current version is **1.5** (see [NOTES.md](NOTES.md) for the changes of each version).
+The current version is **1.6** (see [NOTES.md](NOTES.md) for the changes of each version).
 The interfaces of the programs are in English; the documentation is in English and Spanish.
 Earlier versions of the project were called *py-wkt*; their settings are carried over
 automatically.

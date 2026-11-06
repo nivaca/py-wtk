@@ -1,5 +1,13 @@
 # Release notes
 
+## 1.6
+
+**Uninstalling removes only what the installer added.** `py-wtk-install.py --uninstall`
+removes from the applications menu the `.desktop` files and the icons that the installer
+made, and nothing else: an entry of the same name that it did not write (one without the
+program's icon) is left alone, and so are links. `--only-gui` follows the same rule when it
+removes the entries of the terminal version and the command line.
+
 ## 1.5
 
 **Links open the entry at the top.** A link to another entry now opens it at the top,
