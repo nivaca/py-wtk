@@ -172,5 +172,5 @@ come from it; they were checked by eye, and in 1.6 they were taken
 again.  There are not yet automated tests.
 
 For installation and full usage instructions, see the
-[README](README.md); the changes of each version are in
+[README](../README.md); the changes of each version are in
 [NOTES.md](NOTES.md).

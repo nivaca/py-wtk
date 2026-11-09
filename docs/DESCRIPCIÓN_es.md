@@ -60,4 +60,4 @@ Lo desarrollé en Fedora Linux 45 con KDE Plasma, con Python 3.15 para el trabaj
 
 Para usarlo no hay que instalar nada: se descarga el AppImage y se ejecuta, o se descomprime el zip y se ejecutan sus lanzadores (`py-wtk`, `py-wtk-tui`, `py-wtk-gui`). Si se quiere, `python3 py-wtk-install.py` añade accesos al menú de aplicaciones, con su icono y sin permisos de administrador. Los ajustes quedan en la carpeta de configuración del usuario (`~/.config/py-wtk/config.toml` en Linux) y la caché en su carpeta de caché (`~/.cache/py-wtk` en Linux).
 
-Las instrucciones completas de instalación y de uso están en el [README](README.es.md); los cambios de cada versión, en [NOTES.es.md](NOTES.es.md).
+Las instrucciones completas de instalación y de uso están en el [README](../README.es.md); los cambios de cada versión, en [NOTES.es.md](NOTES.es.md).
