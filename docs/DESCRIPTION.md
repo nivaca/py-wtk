@@ -8,7 +8,7 @@ py-wtk is a small program for reading the English Wiktionary
 or an expression in any language, and it shows the whole Wiktionary
 entry, cleanly formatted, in the terminal or in a desktop window.
 Nicolas Vaughan made it in 2026.  Earlier versions were called *py-wkt*;
-the current version is 1.6.  Here I explain how it was made, in six
+the current version is 1.7.  Here I explain how it was made, in six
 stages.
 
 It is meant for people who look up words often: students and teachers
@@ -125,7 +125,13 @@ now shown without them, keeping its colours.
 py-wtk needs Python 3.11 or later (for `tomllib`) and nothing else, so
 it can be used from a zip or a clone of the repository, with three small
 launchers to link into the `PATH`.  For Linux there is also an AppImage,
-which carries its own Python: download, make it executable, run.  A
+which carries its own Python: download, make it executable, run.  Since
+1.7 there is an RPM for Fedora as well, on Copr and, signed, with the
+releases: it uses the Python and Tk of the system, and puts the three
+programs in the `PATH` and the applications menu.  The AppImage's Tk is
+older (8.6) and ignores the scaling that the desktop gives to X11
+programs (`Xft.dpi`), so on a scaled hi-res display its window came out
+very small; since 1.7 the window reads that scaling itself.  A
 small module, `version.py`, is read before the rest of the program, and
 it stays readable by old versions of Python, so a Python too old gets a
 clear message instead of an error.
@@ -138,7 +144,8 @@ and `--uninstall` removes the entries and the icons that the installer
 made, and nothing else.
 
 The scripts in `tools/` make the zip and the AppImage, publish the
-releases on GitHub and Codeberg, take the screenshots of the README, and
+releases on GitHub and Codeberg (with the RPM, which `packaging/`
+builds, and which goes to Copr too), take the screenshots of the README, and
 make all the icons again from one SVG.  The zip and the AppImage carry
 the commit they were made from, which `--version` and *About* show.
 

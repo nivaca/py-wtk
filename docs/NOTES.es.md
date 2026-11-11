@@ -1,5 +1,18 @@
 # Notas de las versiones
 
+## 1.7
+
+**La ventana sigue la escala del escritorio en pantallas de alta resolución.** Con el
+escritorio escalado (por ejemplo al 200 % en Plasma), la ventana del AppImage salía muy
+pequeña: su Tk no hacía caso de la escala que el escritorio da a los programas X11
+(`Xft.dpi`). Ahora la ventana la lee, y el texto y el tamaño de la ventana crecen con ella.
+
+**Un paquete para Fedora.** py-wtk es ahora un RPM, que usa el Python y el Tk del sistema y
+añade los tres programas al `PATH` y al menú de aplicaciones. Está en
+[Copr](https://copr.fedorainfracloud.org/coprs/nivaca/py-wtk/), así que `dnf upgrade` trae
+cada versión nueva (`sudo dnf copr enable nivaca/py-wtk && sudo dnf install py-wtk`), y las
+versiones publicadas lo traen también, firmado, con su clave pública.
+
 ## 1.6
 
 **Desinstalar quita solo lo que añadió el instalador.** `py-wtk-install.py --uninstall`
