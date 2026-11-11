@@ -69,9 +69,11 @@ copr-cli create py-wtk \
    #+begin_src sh
    git status --short        # should print nothing
    #+end_src
-2. Build the SRPM. You do not need =--sign=: COPR signs with its own key.
+2. Build the SRPM, signed (always: the RPMs are always signed; gpg asks
+   for the passphrase, so run it in a terminal). COPR signs its own builds
+   with its own key too.
    #+begin_src sh
-   packaging/build-rpm.sh
+   packaging/build-rpm.sh --sign
    ls build/rpm/SRPMS/       # py-wtk-1.6-1.fc45.src.rpm
    #+end_src
 3. Submit it:
@@ -110,10 +112,10 @@ copr-cli create py-wtk \
    SRPM to COPR (=copr-cli build py-wtk build/rpm/SRPMS/py-wtk-X.Y-*.src.rpm=).
    =--no-copr= leaves that last step out; to do it by hand:
    #+begin_src sh
-   packaging/build-rpm.sh
+   packaging/build-rpm.sh --sign
    copr-cli build py-wtk build/rpm/SRPMS/py-wtk-1.7-*.src.rpm
    #+end_src
-4. Users get it with =sudo dnf upgrade=. COPR regenerates the repo
+3. Users get it with =sudo dnf upgrade=. COPR regenerates the repo
    metadata after each build. dnf can take a while to notice, because of
    its metadata cache (=sudo dnf upgrade --refresh= forces a check).
 
