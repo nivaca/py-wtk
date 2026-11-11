@@ -21,6 +21,8 @@ headings of the entry).  There are two kinds of text:
 
 from __future__ import annotations
 
+import re
+import subprocess
 import sys
 from tkinter import font
 
@@ -48,6 +50,76 @@ def _clamp(size: int) -> int:
     return max(MIN_SIZE, min(MAX_SIZE, size))
 
 
+#  Tk's scaling (pixels per point) at 96 DPI, which the default sizes of
+#  windows, in pixels, are made for
+BASE_SCALING = 96 / 72
+
+
+def _x_resources(root) -> str:
+    """The X resources of ROOT's display (what xrdb -query shows), read with
+    libX11 or else xrdb; empty if neither works."""
+    try:
+        import ctypes
+        import ctypes.util
+        x11 = ctypes.CDLL(ctypes.util.find_library("X11") or "libX11.so.6")
+        x11.XOpenDisplay.argtypes = [ctypes.c_char_p]
+        x11.XOpenDisplay.restype = ctypes.c_void_p
+        x11.XResourceManagerString.argtypes = [ctypes.c_void_p]
+        x11.XResourceManagerString.restype = ctypes.c_char_p
+        x11.XCloseDisplay.argtypes = [ctypes.c_void_p]
+        display = x11.XOpenDisplay(root.winfo_screen().encode())
+        if display:
+            try:
+                return (x11.XResourceManagerString(display) or b"").decode("latin-1")
+            finally:
+                x11.XCloseDisplay(display)
+    except (OSError, AttributeError, ValueError):
+        pass
+    try:
+        return subprocess.run(["xrdb", "-query"], capture_output=True, text=True,
+                              timeout=2).stdout
+    except (OSError, subprocess.SubprocessError):
+        return ""
+
+
+def fit_scaling(root):
+    """Makes Tk's points as large as the desktop asks.  On X11 (and XWayland)
+    Tk 8.6 works its scaling out from the size the X server gives the screen,
+    which ignores the desktop's own scaling: Plasma, GNOME and others say it
+    in the resource Xft.dpi (192 at 200%), so on a hi-res display, with
+    scaling, everything came out very small (the AppImage's Tk is 8.6; Tk 9
+    reads Xft.dpi itself, and this changes nothing).  Done once for each Tk
+    (ROOT may be any of its widgets)."""
+    root = root._root()             # (one scaling for each Tk)
+    if getattr(root, "_py_wtk_scaled", False):
+        return
+    root._py_wtk_scaled = True
+    if root.tk.call("tk", "windowingsystem") != "x11":
+        return
+    m = re.search(r"^Xft\.dpi:\s*([0-9]+(?:\.[0-9]+)?)\s*$", _x_resources(root), re.M)
+    if not (m and 48 <= float(m[1]) <= 960):
+        return
+    scaling = float(m[1]) / 72
+    if abs(scaling - float(root.tk.call("tk", "scaling"))) < 0.01:
+        return
+    root.tk.call("tk", "scaling", scaling)
+    #  Tk 8.6 gives its standard fonts in pixels (-12), which do not follow
+    #  the scaling: they are given again in points, as at 96 DPI (9)
+    for name in font.names(root):
+        if name.startswith("Tk"):
+            f = font.nametofont(name, root)
+            if int(f.cget("size")) < 0:
+                f.configure(size=max(1, round(-int(f.cget("size")) / BASE_SCALING)))
+
+
+def scaled(root, geometry: str) -> str:
+    """GEOMETRY ("WIDTHxHEIGHT", in pixels at 96 DPI) for ROOT's scaling."""
+    fit_scaling(root)
+    factor = max(1.0, float(root.tk.call("tk", "scaling")) / BASE_SCALING)
+    w, h = (int(n) for n in geometry.split("x"))
+    return f"{round(w * factor)}x{round(h * factor)}"
+
+
 class Fonts:
     """The fonts of one Tk application.  Use `Fonts.of(widget, settings)`,
     which makes them once."""
@@ -61,6 +133,7 @@ class Fonts:
         return fonts
 
     def __init__(self, root, settings):
+        fit_scaling(root)               # (before any font is measured)
         self.root = root
         self.settings = settings
         installed = set(font.families(root))

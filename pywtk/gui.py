@@ -26,7 +26,7 @@ from .common import (History, add_lookup_args, cache_summary, clear_cache, link_
                      network_message, no_language_message, open_in_browser, plural,
                      render_languages)
 from .entry import Language, Options, language_sections
-from .gui_fonts import Fonts
+from .gui_fonts import Fonts, scaled
 from .gui_theme import DARK, LIGHT, Theme
 from .render import Rendered
 from .settings import BY_NAME, Setting, Settings
@@ -116,10 +116,10 @@ class App:
         root.title(title())
         geometry = st["gui.window_geometry"] if st["gui.remember_window"] else ""
         try:
-            root.geometry(geometry or "1150x780")
+            root.geometry(geometry or scaled(root, "1150x780"))
         except tk.TclError:
-            root.geometry("1150x780")
-        root.minsize(600, 400)
+            root.geometry(scaled(root, "1150x780"))
+        root.minsize(*(int(n) for n in scaled(root, "600x400").split("x")))
         root.protocol("WM_DELETE_WINDOW", self.quit)
         self.build_menu()
         self.build_ui()
