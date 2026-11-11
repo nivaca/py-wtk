@@ -72,6 +72,29 @@ chmod +x py-wtk-v.*-x86_64.AppImage
 
 A link to the AppImage named `py-wtk`, `py-wtk-tui` or `py-wtk-gui` starts that program.
 
+**In Fedora:** install the RPM package, which uses the Python and Tk of the system and adds
+the three programs to the `PATH` and to the applications menu, with their icon. The easiest
+is from [Copr](https://copr.fedorainfracloud.org/coprs/nivaca/py-wtk/), so `dnf upgrade`
+brings each new version:
+
+```sh
+sudo dnf copr enable nivaca/py-wtk
+sudo dnf install py-wtk
+```
+
+The releases also have the RPM (`py-wtk-VERSION-1.fcNN.noarch.rpm`), signed, with its
+public key (`RPM-GPG-KEY-py-wtk`, to import one time): `sudo rpm --import RPM-GPG-KEY-py-wtk`
+and then `sudo dnf install ./py-wtk-*.noarch.rpm`. It works in any Fedora with Python 3.11
+or newer, whatever the `fc` number. Or build it from the folder of the program (a git clone):
+
+```sh
+sudo dnf install rpm-build python3-devel desktop-file-utils python3-tkinter
+packaging/build-rpm.sh
+sudo dnf install build/rpm/RPMS/noarch/py-wtk-*.rpm
+```
+
+The program goes into `/usr/share/py-wtk`, with links in `/usr/bin`.
+
 **With your own Python** (any system): download the zip of the last release
 (`py-wtk-v.VERSION.zip`), or clone the repository, put the folder wherever you want, and
 make links to the three launchers in a directory that is in your `PATH`:
@@ -348,11 +371,15 @@ make the icons. They are not in the bundles.
 |----------------------------|----------------------------------------------------------------|
 | `tools/bundle-zip.py`      | makes `dist/py-wtk-v.VERSION.zip`: the program, the icons and the documents, without hidden files, `__pycache__` nor the tools, with a `COMMIT` file (shown by `--version` and *About*). `--list` only lists the files. |
 | `tools/bundle-appimage.py` | makes `dist/py-wtk-v.VERSION-x86_64.AppImage`, with a Python of its own (from [python-appimage](https://github.com/niess/python-appimage)) and the program as in the zip. The first time it downloads that Python and [appimagetool](https://github.com/AppImage/appimagetool) into `~/.cache/py-wtk-build`; `--python` and `--appimagetool` give them instead. |
-| `tools/release.py`         | publishes the tag `vVERSION` on GitHub (`gh`) and Codeberg (`tea`) with the zip and the AppImage: it makes them, tags, pushes and makes or updates the releases. It shows the commands and asks before; `--dry-run` only shows them. See `--help`. |
+| `tools/release.py`         | publishes the tag `vVERSION` on GitHub (`gh`) and Codeberg (`tea`) with the zip and the AppImage: it makes them, tags, pushes and makes or updates the releases. With `--rpm`, also the signed RPM and its key, and it sends the RPM to Copr (`copr-cli`; `--no-copr` does not). It shows the commands and asks before; `--dry-run` only shows them. See `--help`. |
 | `tools/screenshots.py`     | takes the screenshots of the three programs into `docs/img/` (the window light and dark), with settings and cache of its own, so yours are not touched. It needs tmux, ImageMagick, Chrome or Chromium, and Xvfb or a display. |
 | `tools/icons.py`           | makes all the icons again from `icons/py-wtk.svg`: the PNGs, the Linux, macOS and Windows icons. Each size is drawn by Inkscape (also as a Flatpak) from the SVG; the `.icns` and the `.ico` are put together with Pillow. `--dry-run` only shows how Inkscape would be run. |
 
-The version is in `pywtk/__init__.py`.
+The RPM is made by `packaging/build-rpm.sh` (`--sign` signs it) from `packaging/py-wtk.spec`,
+into `build/rpm/`; `packaging/COPR.org` tells how it is published on Copr.
+
+The version is in `pywtk/__init__.py`, and that of the RPM in `packaging/py-wtk.spec`
+(`rpmdev-bumpspec -n X.Y`).
 
 ## Notes
 

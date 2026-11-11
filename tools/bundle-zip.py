@@ -42,8 +42,8 @@ LEFT_OUT = ("__pycache__", "*.pyc", "*.bak", "*.tmp", "*.old", "*~",
             f"{NAME}-v*.zip", "*.AppImage", COMMIT_FILE)
 #  What is in the program's folder but not part of it: the bundles, and
 #  the tools that make them, publish releases and make the screenshots and
-#  icons (not needed to run the program)
-NOT_PART = ("dist", "tools")
+#  icons (not needed to run the program), and the RPM made in build/
+NOT_PART = ("dist", "tools", "build")
 
 
 def name() -> str:

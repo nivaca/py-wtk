@@ -9,3 +9,5 @@ __pycache__/
 dist/
 # Written into the bundles only (pywtk/version.py reads it)
 /COMMIT
+# The RPM (packaging/build-rpm.sh)
+/build/
