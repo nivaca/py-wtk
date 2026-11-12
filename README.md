@@ -378,7 +378,7 @@ make the icons. They are not in the bundles.
 The RPM is made by `packaging/build-rpm.sh` from `packaging/py-wtk.spec`, into `build/rpm/`.
 `--sign` signs it with the project's key only (`SIGNING_KEY` in the script; `--sign=KEY` for
 another one), and stops if that key is not in the machine's keyring. The releases are all
-signed with the author's key, fingerprint `236E F043 AB7A 4434 A05C A4EC B554 9099 FC0D 6464`; a copy of the public key is in
+signed with the author's key, fingerprint `8187 0643 CA22 1AF9 0C30 554E BE68 32CD 3599 4948`; a copy of the public key is in
 `packaging/RPM-GPG-KEY-py-wtk`; `packaging/COPR.org` tells how it is published on Copr.
 
 The version is in `pywtk/__init__.py`, and that of the RPM in `packaging/py-wtk.spec`

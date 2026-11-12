@@ -385,7 +385,7 @@ El RPM lo genera `packaging/build-rpm.sh` a partir de `packaging/py-wtk.spec`, e
 `build/rpm/`. `--sign` lo firma solo con la clave del proyecto (`SIGNING_KEY` en el script;
 `--sign=CLAVE` para otra), y se detiene si esa clave no está en el llavero de la máquina.
 Las versiones publicadas van todas firmadas con la clave del autor, de huella
-`236E F043 AB7A 4434 A05C A4EC B554 9099 FC0D 6464`; hay una copia de la clave pública en `packaging/RPM-GPG-KEY-py-wtk`; `packaging/COPR.org` explica cómo se publica en Copr.
+`8187 0643 CA22 1AF9 0C30 554E BE68 32CD 3599 4948`; hay una copia de la clave pública en `packaging/RPM-GPG-KEY-py-wtk`; `packaging/COPR.org` explica cómo se publica en Copr.
 
 La versión está en `pywtk/__init__.py`, y la del RPM en `packaging/py-wtk.spec`
 (`rpmdev-bumpspec -n X.Y`).

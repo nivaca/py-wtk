@@ -8,6 +8,12 @@ stress mark before the `p`, as in a pronunciation. It can be read on light and d
 and down to 16 pixels. If you added the program to the applications menu with
 `py-wtk-install.py`, run it again to get the new icon there.
 
+**A new signing key for the RPM.** The RPM attached to the releases is now signed with the
+key `8187 0643 CA22 1AF9 0C30  554E BE68 32CD 3599 4948` (a copy is in
+`packaging/RPM-GPG-KEY-py-wtk`, and in each release as `RPM-GPG-KEY-py-wtk`). If you
+installed an earlier RPM from a release, import the new key once:
+`sudo rpm --import RPM-GPG-KEY-py-wtk`. The package from Copr is not affected.
+
 ## 1.7
 
 **The window follows the desktop's scaling on hi-res displays.** With the desktop scaled

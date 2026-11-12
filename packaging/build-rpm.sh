@@ -29,8 +29,8 @@
 set -euo pipefail
 
 DIR="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/.." && pwd)"
-# The project's signing key (Nicolas Vaughan, ed25519, 2026)
-SIGNING_KEY="${SIGNING_KEY:-236EF043AB7A4434A05CA4ECB5549099FC0D6464}"
+# The project's signing key (Nicolas Vaughan, RPM signing, ed25519, 2026)
+SIGNING_KEY="${SIGNING_KEY:-81870643CA221AF90C30554EBE6832CD35994948}"
 SPEC="$DIR/packaging/py-wtk.spec"
 TOP="$DIR/build/rpm"
 RPMSIGN="${RPMSIGN:-rpmsign}"

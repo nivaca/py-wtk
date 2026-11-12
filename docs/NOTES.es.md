@@ -8,6 +8,12 @@ verde azulado, con una marca de acento ámbar antes de la `p`, como en una pronu
 lee sobre paneles claros y oscuros, y hasta en 16 píxeles. Si añadiste el programa al menú
 de aplicaciones con `py-wtk-install.py`, ejecútalo de nuevo para tener allí el icono nuevo.
 
+**Una clave nueva para firmar el RPM.** El RPM de las versiones publicadas va firmado ahora
+con la clave `8187 0643 CA22 1AF9 0C30  554E BE68 32CD 3599 4948` (hay una copia en
+`packaging/RPM-GPG-KEY-py-wtk`, y en cada versión como `RPM-GPG-KEY-py-wtk`). Si instalaste
+un RPM anterior de una versión publicada, importa la clave nueva una vez:
+`sudo rpm --import RPM-GPG-KEY-py-wtk`. El paquete de Copr no cambia.
+
 ## 1.7
 
 **La ventana sigue la escala del escritorio en pantallas de alta resolución.** Con el
