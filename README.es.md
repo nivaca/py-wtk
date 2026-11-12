@@ -381,8 +381,11 @@ generan los iconos. No van dentro de los paquetes.
 | `tools/screenshots.py`     | toma las capturas de los tres programas en `docs/img/` (la ventana clara y oscura), con ajustes y caché propios, de modo que no toca los tuyos. Necesita tmux, ImageMagick, Chrome o Chromium, y Xvfb o una pantalla. |
 | `tools/icons.py`           | genera de nuevo todos los iconos a partir de `icons/py-wtk.svg`: los PNG y los iconos de Linux, macOS y Windows. Cada tamaño lo dibuja Inkscape (también como Flatpak) a partir del SVG; el `.icns` y el `.ico` se montan con Pillow. `--dry-run` solo muestra cómo se ejecutaría Inkscape. |
 
-El RPM lo genera `packaging/build-rpm.sh` (`--sign` lo firma) a partir de
-`packaging/py-wtk.spec`, en `build/rpm/`; `packaging/COPR.org` explica cómo se publica en Copr.
+El RPM lo genera `packaging/build-rpm.sh` a partir de `packaging/py-wtk.spec`, en
+`build/rpm/`. `--sign` lo firma solo con la clave del proyecto (`SIGNING_KEY` en el script;
+`--sign=CLAVE` para otra), y se detiene si esa clave no está en el llavero de la máquina.
+Las versiones publicadas van todas firmadas con la clave del autor, de huella
+`236E F043 AB7A 4434 A05C A4EC B554 9099 FC0D 6464`; hay una copia de la clave pública en `packaging/RPM-GPG-KEY-py-wtk`; `packaging/COPR.org` explica cómo se publica en Copr.
 
 La versión está en `pywtk/__init__.py`, y la del RPM en `packaging/py-wtk.spec`
 (`rpmdev-bumpspec -n X.Y`).

@@ -375,8 +375,11 @@ make the icons. They are not in the bundles.
 | `tools/screenshots.py`     | takes the screenshots of the three programs into `docs/img/` (the window light and dark), with settings and cache of its own, so yours are not touched. It needs tmux, ImageMagick, Chrome or Chromium, and Xvfb or a display. |
 | `tools/icons.py`           | makes all the icons again from `icons/py-wtk.svg`: the PNGs, the Linux, macOS and Windows icons. Each size is drawn by Inkscape (also as a Flatpak) from the SVG; the `.icns` and the `.ico` are put together with Pillow. `--dry-run` only shows how Inkscape would be run. |
 
-The RPM is made by `packaging/build-rpm.sh` (`--sign` signs it) from `packaging/py-wtk.spec`,
-into `build/rpm/`; `packaging/COPR.org` tells how it is published on Copr.
+The RPM is made by `packaging/build-rpm.sh` from `packaging/py-wtk.spec`, into `build/rpm/`.
+`--sign` signs it with the project's key only (`SIGNING_KEY` in the script; `--sign=KEY` for
+another one), and stops if that key is not in the machine's keyring. The releases are all
+signed with the author's key, fingerprint `236E F043 AB7A 4434 A05C A4EC B554 9099 FC0D 6464`; a copy of the public key is in
+`packaging/RPM-GPG-KEY-py-wtk`; `packaging/COPR.org` tells how it is published on Copr.
 
 The version is in `pywtk/__init__.py`, and that of the RPM in `packaging/py-wtk.spec`
 (`rpmdev-bumpspec -n X.Y`).
