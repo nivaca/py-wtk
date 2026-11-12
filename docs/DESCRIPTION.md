@@ -8,7 +8,7 @@ py-wtk is a small program for reading the English Wiktionary
 or an expression in any language, and it shows the whole Wiktionary
 entry, cleanly formatted, in the terminal or in a desktop window.
 Nicolas Vaughan made it in 2026.  Earlier versions were called *py-wkt*;
-the current version is 1.7.  Here I explain how it was made, in six
+the current version is 1.8.  Here I explain how it was made, in six
 stages.
 
 It is meant for people who look up words often: students and teachers
@@ -146,7 +146,8 @@ made, and nothing else.
 The scripts in `tools/` make the zip and the AppImage, publish the
 releases on GitHub and Codeberg (with the RPM, which `packaging/`
 builds, and which goes to Copr too), take the screenshots of the README, and
-make all the icons again from one SVG.  The zip and the AppImage carry
+make all the icons again from one SVG (since 1.8 the bracketed `pW`,
+drawn with shapes rather than a font, on a teal tile).  The zip and the AppImage carry
 the commit they were made from, which `--version` and *About* show.
 
 6. One place for what is shared

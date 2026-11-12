@@ -1,5 +1,13 @@
 # Notas de las versiones
 
+## 1.8
+
+**Un icono nuevo.** El `pW` entre corchetes del programa, dibujado ahora con formas en lugar
+de con una fuente (así se ve igual en todos los sistemas), en blanco y crema sobre un fondo
+verde azulado, con una marca de acento ámbar antes de la `p`, como en una pronunciación. Se
+lee sobre paneles claros y oscuros, y hasta en 16 píxeles. Si añadiste el programa al menú
+de aplicaciones con `py-wtk-install.py`, ejecútalo de nuevo para tener allí el icono nuevo.
+
 ## 1.7
 
 **La ventana sigue la escala del escritorio en pantallas de alta resolución.** Con el

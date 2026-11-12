@@ -1,5 +1,13 @@
 # Release notes
 
+## 1.8
+
+**A new icon.** The bracketed `pW` of the program, now drawn with shapes instead of a font
+(so it looks the same on every system), in white and cream on a teal tile, with an amber
+stress mark before the `p`, as in a pronunciation. It can be read on light and dark panels,
+and down to 16 pixels. If you added the program to the applications menu with
+`py-wtk-install.py`, run it again to get the new icon there.
+
 ## 1.7
 
 **The window follows the desktop's scaling on hi-res displays.** With the desktop scaled

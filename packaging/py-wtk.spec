@@ -5,7 +5,7 @@
 # Build with packaging/build-rpm.sh, which makes the source tarball.
 
 Name:           py-wtk
-Version:        1.7
+Version:        1.8
 Release:        1%{?dist}
 Summary:        Look up words in the English Wiktionary
 
@@ -97,6 +97,9 @@ PYTHONPATH=%{buildroot}%{_datadir}/%{name} %{python3} -c \
 %{_datadir}/icons/hicolor/*/apps/py-wtk.*
 
 %changelog
+* Thu Nov 12 2026 Nicolas Vaughan <nivaca@fastmail.com> - 1.8-1
+- A new icon
+
 * Wed Nov 11 2026 Nicolas Vaughan <nivaca@fastmail.com> - 1.7-1
 - The window follows the desktop's scaling (Xft.dpi) on hi-res displays
 

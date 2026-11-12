@@ -1,4 +1,4 @@
-# py-wtk 1.7: descripción
+# py-wtk 1.8: descripción
 
 *[Read in English](DESCRIPTION.md)*
 
@@ -40,7 +40,7 @@ En la ventana, los enlaces tienen el color de los enlaces y se subrayan bajo el 
 
 El trabajo pasó por seis etapas: la conversión del HTML del Wiktionary en texto, con sus lenguas, secciones y tablas; los tres programas sobre un mismo código de presentación; los ajustes compartidos y la caché; los enlaces; la distribución (zip, AppImage e instalador), y, por último, la reunión en `common.py` de lo que cada programa tenía por su cuenta.
 
-El programa se distribuye como un zip (o un clon del repositorio) para cualquier sistema con Python 3.11 o posterior, con tres lanzadores que se enlazan en el `PATH`, como un AppImage para Linux, que lleva su propio Python, y, desde la 1.7, como un paquete RPM para Fedora, en Copr y, firmado, con cada versión publicada, que usa el Python y el Tk del sistema y pone los tres programas en el `PATH` y en el menú de aplicaciones. El Tk del AppImage es más antiguo (8.6) y no hace caso de la escala que el escritorio da a los programas X11 (`Xft.dpi`), así que en una pantalla de alta resolución escalada su ventana salía muy pequeña; desde la 1.7 la ventana lee esa escala por su cuenta. El zip y el AppImage llevan el commit del que se hicieron, que muestran `--version` y *About*. Los guiones de `tools/` generan el zip y el AppImage, publican las versiones, toman las capturas de pantalla del README y vuelven a generar todos los iconos a partir de un único SVG.
+El programa se distribuye como un zip (o un clon del repositorio) para cualquier sistema con Python 3.11 o posterior, con tres lanzadores que se enlazan en el `PATH`, como un AppImage para Linux, que lleva su propio Python, y, desde la 1.7, como un paquete RPM para Fedora, en Copr y, firmado, con cada versión publicada, que usa el Python y el Tk del sistema y pone los tres programas en el `PATH` y en el menú de aplicaciones. El Tk del AppImage es más antiguo (8.6) y no hace caso de la escala que el escritorio da a los programas X11 (`Xft.dpi`), así que en una pantalla de alta resolución escalada su ventana salía muy pequeña; desde la 1.7 la ventana lee esa escala por su cuenta. El zip y el AppImage llevan el commit del que se hicieron, que muestran `--version` y *About*. Los guiones de `tools/` generan el zip y el AppImage, publican las versiones, toman las capturas de pantalla del README y vuelven a generar todos los iconos a partir de un único SVG (desde la 1.8, el `pW` entre corchetes, dibujado con formas y no con una fuente, sobre un fondo verde azulado).
 
 El código se gestiona con git, en un solo repositorio publicado en GitHub y en Codeberg. `tools/release.py` publica cada versión en los dos sitios, con el zip, el AppImage y el RPM firmado, que `packaging/` genera y que se envía también a Copr.
 
