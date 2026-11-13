@@ -1,5 +1,12 @@
 # Notas de las versiones
 
+## 1.9
+
+**La interfaz de terminal arranca en el AppImage.** El Python del AppImage no podía leer
+cómo se describen la mayoría de las terminales (las de 256 colores, como en Fedora y en
+Debian 12 y posteriores), y `py-wtk-tui` se detenía en seguida con «setupterm: could not
+find terminal». Ahora el AppImage lleva esas descripciones en una forma que puede leer.
+
 ## 1.8
 
 **Un icono nuevo.** El `pW` entre corchetes del programa, dibujado ahora con formas en lugar

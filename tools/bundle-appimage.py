@@ -42,6 +42,7 @@ import argparse  # noqa: E402
 import glob  # noqa: E402
 import importlib.util  # noqa: E402
 import json  # noqa: E402
+import re  # noqa: E402
 import shutil  # noqa: E402
 import stat  # noqa: E402
 import subprocess  # noqa: E402
@@ -70,6 +71,23 @@ APPIMAGETOOL = "https://github.com/AppImage/appimagetool/releases/" \
 #  AppImage itself (appimagetool wants a PNG for .DirIcon, as file managers do)
 HICOLOR = os.path.join(HERE, "icons", "linux", "hicolor")
 ICON = os.path.join(HICOLOR, "256x256", "apps", APP_ID + ".png")
+
+#  The terminals whose descriptions go in the AppImage.  Its Python has the
+#  ncurses 5 of manylinux, which cannot read the descriptions that newer
+#  systems (Fedora, Debian 12...) compile in the format of ncurses 6.1 for
+#  every terminal with 256 colours, and then curses does not start.  So the
+#  AppImage carries them in the old format, made from those of the system
+#  that builds it (those it does not know are left out).
+TERMINALS = (
+    "xterm", "xterm-color", "xterm-256color", "xterm-direct", "xterm-kitty",
+    "screen", "screen-256color", "tmux", "tmux-256color", "linux", "vt100", "vt220",
+    "rxvt", "rxvt-unicode", "rxvt-unicode-256color", "konsole", "konsole-256color",
+    "gnome", "gnome-256color", "vte", "vte-256color", "putty", "putty-256color",
+    "alacritty", "foot", "foot-direct", "wezterm", "st", "st-256color", "dumb",
+    "ansi", "cygwin", "ms-terminal", "contour", "ghostty",
+)
+#  (the biggest number the old format holds)
+SHORT_MAX = 32767
 
 #  The programs: (command, launcher)
 COMMANDS = (("gui", "py-wtk-gui"),
@@ -260,6 +278,43 @@ def make_appdir(appdir: str, commit: str | None):
     os.symlink(APP_ID + ".png", os.path.join(appdir, ".DirIcon"))
     shutil.copytree(HICOLOR, os.path.join(appdir, "usr", "share", "icons", "hicolor"),
                     dirs_exist_ok=True)
+    terminfo(os.path.join(appdir, "usr", "share", "terminfo"))
+
+
+def short_numbers(source: str) -> str:
+    """SOURCE (a description, as infocmp gives it) with its numbers above
+    SHORT_MAX made SHORT_MAX (pairs#0x10000 of 256 colours, say), so that tic
+    writes it in the old format."""
+    def cap(m):
+        number = m.group(2)
+        value = int(number, 16) if number[:2].lower() == "0x" else int(number)
+        return m.group(1) + (str(SHORT_MAX) if value > SHORT_MAX else number)
+    return re.sub(r"(\b[\w.]+#)(0x[0-9a-fA-F]+|\d+)\b", cap, source)
+
+
+def terminfo(folder: str):
+    """Writes into FOLDER the descriptions of TERMINALS, in the format of
+    ncurses 5, as the AppRun looks for them there first."""
+    if not (shutil.which("infocmp") and shutil.which("tic")):
+        print("Warning: without infocmp and tic (ncurses), the AppImage has no "
+              "terminal descriptions, and py-wtk-tui may not start in it",
+              file=sys.stderr)
+        return
+    os.makedirs(folder, exist_ok=True)
+    done = []
+    for term in TERMINALS:
+        source = subprocess.run(["infocmp", "-x", "-1", term], capture_output=True,
+                                text=True)
+        if source.returncode != 0:
+            continue
+        made = subprocess.run(["tic", "-x", "-o", folder, "-"],
+                              input=short_numbers(source.stdout),
+                              capture_output=True, text=True)
+        if made.returncode == 0:
+            done.append(term)
+        else:
+            print(f"Warning: tic {term}: {made.stderr.strip()}", file=sys.stderr)
+    print(f"Terminal descriptions: {len(done)} of {len(TERMINALS)}", file=sys.stderr)
 
 
 def open_to_all(appdir: str):

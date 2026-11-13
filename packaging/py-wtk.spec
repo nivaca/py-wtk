@@ -5,7 +5,7 @@
 # Build with packaging/build-rpm.sh, which makes the source tarball.
 
 Name:           py-wtk
-Version:        1.8
+Version:        1.9
 Release:        1%{?dist}
 Summary:        Look up words in the English Wiktionary
 
@@ -97,6 +97,10 @@ PYTHONPATH=%{buildroot}%{_datadir}/%{name} %{python3} -c \
 %{_datadir}/icons/hicolor/*/apps/py-wtk.*
 
 %changelog
+* Fri Nov 13 2026 Nicolas Vaughan <nivaca@fastmail.com> - 1.9-1
+- The AppImage carries terminal descriptions in the old format, so py-wtk-tui
+  starts in it
+
 * Thu Nov 12 2026 Nicolas Vaughan <nivaca@fastmail.com> - 1.8-1
 - A new icon
 
