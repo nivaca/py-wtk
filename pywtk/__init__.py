@@ -24,4 +24,4 @@ Modules:
     gui_fonts the fonts of the window
 """
 
-__version__ = "1.9"
+__version__ = "1.10"

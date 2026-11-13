@@ -39,7 +39,7 @@ DIST = os.path.join(HERE, "dist")
 #  What is made while the program runs or is edited (as in .gitignore), and
 #  earlier bundles
 LEFT_OUT = ("__pycache__", "*.pyc", "*.bak", "*.tmp", "*.old", "*~",
-            f"{NAME}-v*.zip", "*.AppImage", COMMIT_FILE)
+            f"{NAME}-v*.zip", "*.AppImage", "*.flatpak", COMMIT_FILE)
 #  What is in the program's folder but not part of it: the bundles, and
 #  the tools that make them, publish releases and make the screenshots and
 #  icons (not needed to run the program), and the RPM made in build/

@@ -1,5 +1,24 @@
 # Notas de las versiones
 
+## 1.10
+
+**Copiar y pegar.** La ventana tiene un menú *Edit* con Cut, Copy y Paste (cortar, copiar y
+pegar: `Ctrl+X`, `Ctrl+C`, `Ctrl+V`), para el cuadro de búsqueda, el de las lenguas y el de
+buscar en la página, y Copy también para el texto seleccionado en la entrada; lo que no se
+puede hacer en ese momento aparece en gris. En la interfaz de terminal, `y` (o `F7`) copia
+toda la entrada como texto simple, con el programa del sistema para el portapapeles o, si no
+hay ninguno, a través de la propia terminal.
+
+**Un Flatpak.** Cada versión publicada trae ahora también `py-wtk-v.VERSIÓN-x86_64.flatpak`,
+con los tres programas, sus accesos en el menú y el icono, que funciona en cualquier Linux
+con Flatpak: `flatpak install --user py-wtk-v.*-x86_64.flatpak`, y luego
+`flatpak run io.github.nivaca.PyWtk` (la ventana). Su runtime viene de Flathub.
+
+**El índice sigue el tamaño del texto.** Sus filas tenían una altura fija, así que con un
+texto más grande (`Ctrl++`) o en una pantalla de alta resolución escalada los elementos se
+montaban unos sobre otros; ahora son tan altas como su texto. En una pantalla escalada, el
+panel tiene además el ancho que le corresponde.
+
 ## 1.9
 
 **La interfaz de terminal arranca en el AppImage.** El Python del AppImage no podía leer

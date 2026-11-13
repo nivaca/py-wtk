@@ -1,5 +1,22 @@
 # Release notes
 
+## 1.10
+
+**Copying and pasting.** The window has an *Edit* menu with Cut, Copy and Paste
+(`Ctrl+X`, `Ctrl+C`, `Ctrl+V`), for the search box, the languages and the find box, and
+Copy also for the text selected in the entry; what can't be done at the moment is greyed
+out. In the terminal interface, `y` (or `F7`) copies the whole entry as plain text, through
+the clipboard program of the system or, if there is none, through the terminal itself.
+
+**A Flatpak.** Each release now has `py-wtk-v.VERSION-x86_64.flatpak` too, with the three
+programs, their menu entries and the icon, which runs on any Linux with Flatpak:
+`flatpak install --user py-wtk-v.*-x86_64.flatpak`, then `flatpak run io.github.nivaca.PyWtk`
+(the window). Its runtime comes from Flathub.
+
+**The contents pane follows the size of the text.** Its rows had a fixed height, so with a
+bigger text (`Ctrl++`) or on a scaled hi-res display the items overlapped; now they are as
+tall as their text. On a scaled display the pane is also as wide as it should be.
+
 ## 1.9
 
 **The terminal interface starts in the AppImage.** The Python in the AppImage could not

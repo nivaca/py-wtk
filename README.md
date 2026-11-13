@@ -72,6 +72,22 @@ chmod +x py-wtk-v.*-x86_64.AppImage
 
 A link to the AppImage named `py-wtk`, `py-wtk-tui` or `py-wtk-gui` starts that program.
 
+**With Flatpak** (any Linux): download the Flatpak of the last release
+(`py-wtk-v.VERSION-x86_64.flatpak`) and install it for you; it adds the three programs to the
+applications menu, with their icon. Its runtime comes from
+[Flathub](https://flathub.org), which Flatpak downloads by itself the first time:
+
+```sh
+flatpak install --user py-wtk-v.*-x86_64.flatpak
+flatpak run io.github.nivaca.PyWtk                           # the window
+flatpak run --command=py-wtk-tui io.github.nivaca.PyWtk      # the terminal interface
+flatpak run --command=py-wtk io.github.nivaca.PyWtk rosa     # the command line
+```
+
+Its settings and cache are in `~/.var/app/io.github.nivaca.PyWtk/`, not with the others.
+In the terminal interface, `y` copies through the terminal (OSC 52), because the sandbox
+has no clipboard program.
+
 **In Fedora:** install the RPM package, which uses the Python and Tk of the system and adds
 the three programs to the `PATH` and to the applications menu, with their icon. The easiest
 is from [Copr](https://copr.fedorainfracloud.org/coprs/nivaca/py-wtk/), so `dnf upgrade`
@@ -372,14 +388,15 @@ icons/        the icons (Linux, macOS, Windows)
 
 ## For developers
 
-Five scripts, in `tools/`, make the bundles, publish the releases, take the screenshots and
+Six scripts, in `tools/`, make the bundles, publish the releases, take the screenshots and
 make the icons. They are not in the bundles.
 
 | Script                     | What it does                                                   |
 |----------------------------|----------------------------------------------------------------|
 | `tools/bundle-zip.py`      | makes `dist/py-wtk-v.VERSION.zip`: the program, the icons and the documents, without hidden files, `__pycache__` nor the tools, with a `COMMIT` file (shown by `--version` and *About*). `--list` only lists the files. |
 | `tools/bundle-appimage.py` | makes `dist/py-wtk-v.VERSION-x86_64.AppImage`, with a Python of its own (from [python-appimage](https://github.com/niess/python-appimage)) and the program as in the zip. The first time it downloads that Python and [appimagetool](https://github.com/AppImage/appimagetool) into `~/.cache/py-wtk-build`; `--python` and `--appimagetool` give them instead. |
-| `tools/release.py`         | publishes the tag `vVERSION` on GitHub (`gh`) and Codeberg (`tea`) with the zip and the AppImage: it makes them, tags, pushes and makes or updates the releases. With `--rpm`, also the signed RPM and its key, and it sends the RPM to Copr (`copr-cli`; `--no-copr` does not). It shows the commands and asks before; `--dry-run` only shows them. See `--help`. |
+| `tools/bundle-flatpak.py`  | makes `dist/py-wtk-v.VERSION-x86_64.flatpak`, the Flatpak (`io.github.nivaca.PyWtk`), with flatpak-builder from `packaging/flatpak/`; the runtime has no Tk, so Tcl/Tk and Python's `_tkinter` are built in it. It checks that the metainfo's first release is this version. `--install` also installs it for you. |
+| `tools/release.py`         | publishes the tag `vVERSION` on GitHub (`gh`) and Codeberg (`tea`) with the zip, the AppImage and the Flatpak: it makes them, tags, pushes and makes or updates the releases. With `--rpm`, also the signed RPM and its key, and it sends the RPM to Copr (`copr-cli`; `--no-copr` does not). It shows the commands and asks before; `--dry-run` only shows them. See `--help`. |
 | `tools/screenshots.py`     | takes the screenshots of the three programs into `docs/img/` (the window light and dark), with settings and cache of its own, so yours are not touched. It needs tmux, ImageMagick, Chrome or Chromium, and Xvfb or a display. |
 | `tools/icons.py`           | makes all the icons again from `icons/py-wtk.svg`: the PNGs, the Linux, macOS and Windows icons. Each size is drawn by Inkscape (also as a Flatpak) from the SVG; the `.icns` and the `.ico` are put together with Pillow. `--dry-run` only shows how Inkscape would be run. |
 

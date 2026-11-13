@@ -71,6 +71,22 @@ chmod +x py-wtk-v.*-x86_64.AppImage
 
 Un enlace al AppImage llamado `py-wtk`, `py-wtk-tui` o `py-wtk-gui` abre ese programa.
 
+**Con Flatpak** (cualquier Linux): descarga el Flatpak de la última versión
+(`py-wtk-v.VERSIÓN-x86_64.flatpak`) e instálalo para ti; añade los tres programas al menú de
+aplicaciones, con su icono. Su runtime viene de [Flathub](https://flathub.org), que Flatpak
+descarga por su cuenta la primera vez:
+
+```sh
+flatpak install --user py-wtk-v.*-x86_64.flatpak
+flatpak run io.github.nivaca.PyWtk                           # la ventana
+flatpak run --command=py-wtk-tui io.github.nivaca.PyWtk      # la interfaz de terminal
+flatpak run --command=py-wtk io.github.nivaca.PyWtk rosa     # la línea de comandos
+```
+
+Sus ajustes y su caché están en `~/.var/app/io.github.nivaca.PyWtk/`, no con los demás. En
+la interfaz de terminal, `y` copia a través de la terminal (OSC 52), porque en el entorno
+aislado no hay un programa para el portapapeles.
+
 **En Fedora:** instala el paquete RPM, que usa el Python y el Tk del sistema y añade los tres
 programas al `PATH` y al menú de aplicaciones, con su icono. Lo más fácil es desde
 [Copr](https://copr.fedorainfracloud.org/coprs/nivaca/py-wtk/), así `dnf upgrade` trae cada
@@ -380,14 +396,15 @@ icons/        los iconos (Linux, macOS, Windows)
 
 ## Para desarrolladores
 
-Cinco scripts, en `tools/`, generan los paquetes, publican las versiones, toman las capturas y
+Seis scripts, en `tools/`, generan los paquetes, publican las versiones, toman las capturas y
 generan los iconos. No van dentro de los paquetes.
 
 | Script                     | Qué hace                                                       |
 |----------------------------|----------------------------------------------------------------|
 | `tools/bundle-zip.py`      | genera `dist/py-wtk-v.VERSIÓN.zip`: el programa, los iconos y los documentos, sin archivos ocultos, `__pycache__` ni las herramientas, con un archivo `COMMIT` (que muestran `--version` y *About*). `--list` solo lista los archivos. |
 | `tools/bundle-appimage.py` | genera `dist/py-wtk-v.VERSIÓN-x86_64.AppImage`, con un Python propio (de [python-appimage](https://github.com/niess/python-appimage)) y el programa como en el zip. La primera vez descarga ese Python y [appimagetool](https://github.com/AppImage/appimagetool) en `~/.cache/py-wtk-build`; `--python` y `--appimagetool` permiten indicarlos. |
-| `tools/release.py`         | publica la etiqueta `vVERSIÓN` en GitHub (`gh`) y Codeberg (`tea`) con el zip y el AppImage: los genera, etiqueta, sube y crea o actualiza las versiones. Con `--rpm`, también el RPM firmado y su clave, y envía el RPM a Copr (`copr-cli`; `--no-copr` lo omite). Muestra antes los comandos y pregunta; `--dry-run` solo los muestra. Véase `--help`. |
+| `tools/bundle-flatpak.py`  | genera `dist/py-wtk-v.VERSIÓN-x86_64.flatpak`, el Flatpak (`io.github.nivaca.PyWtk`), con flatpak-builder a partir de `packaging/flatpak/`; el runtime no trae Tk, así que Tcl/Tk y el `_tkinter` de Python se compilan en él. Comprueba que la primera versión del metainfo sea esta. `--install` además lo instala para ti. |
+| `tools/release.py`         | publica la etiqueta `vVERSIÓN` en GitHub (`gh`) y Codeberg (`tea`) con el zip, el AppImage y el Flatpak: los genera, etiqueta, sube y crea o actualiza las versiones. Con `--rpm`, también el RPM firmado y su clave, y envía el RPM a Copr (`copr-cli`; `--no-copr` lo omite). Muestra antes los comandos y pregunta; `--dry-run` solo los muestra. Véase `--help`. |
 | `tools/screenshots.py`     | toma las capturas de los tres programas en `docs/img/` (la ventana clara y oscura), con ajustes y caché propios, de modo que no toca los tuyos. Necesita tmux, ImageMagick, Chrome o Chromium, y Xvfb o una pantalla. |
 | `tools/icons.py`           | genera de nuevo todos los iconos a partir de `icons/py-wtk.svg`: los PNG y los iconos de Linux, macOS y Windows. Cada tamaño lo dibuja Inkscape (también como Flatpak) a partir del SVG; el `.icns` y el `.ico` se montan con Pillow. `--dry-run` solo muestra cómo se ejecutaría Inkscape. |
 

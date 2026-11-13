@@ -26,7 +26,7 @@ from .common import (History, add_lookup_args, cache_summary, clear_cache, link_
                      network_message, no_language_message, open_in_browser, plural,
                      render_languages)
 from .entry import Language, Options, language_sections
-from .gui_fonts import Fonts, scaled
+from .gui_fonts import Fonts, scale_factor, scaled
 from .gui_theme import DARK, LIGHT, Theme
 from .render import Rendered
 from .settings import BY_NAME, Setting, Settings
@@ -173,7 +173,8 @@ class App:
 
     def quit(self):
         if self.toc_shown():
-            width = self.paned.sashpos(0)
+            #  (kept in pixels at 96 DPI, as the window's other sizes)
+            width = round(self.paned.sashpos(0) / scale_factor(self.root))
             if 120 <= width <= 700 and width != self.settings["gui.contents_width"]:
                 self.save_setting("gui.contents_width", width)
         if self.settings["gui.remember_window"]:
@@ -201,7 +202,7 @@ class App:
             self.show_toc.set(st["gui.show_contents"])
             self.toggle_toc(save=False)
         elif "gui.contents_width" in changed and self.show_toc.get():
-            self.paned.sashpos(0, st["gui.contents_width"])
+            self.restore_sash()
         if "general.cache_days" in changed:
             self.client = st.client()
         if any(n.startswith("fonts.") for n in changed):
@@ -452,6 +453,11 @@ class App:
         t.tag_configure("welcome", foreground=c["dim"])
         self.raise_tags()
         self.show_dark()
+        #  The contents' rows, as tall as their text: ttk gives them a fixed
+        #  number of pixels, which neither the size of the text nor the
+        #  display's scaling (Tk 8.6) would change
+        line = tkfont.nametofont("TkDefaultFont").metrics("linespace")
+        ttk.Style(self.root).configure("Treeview", rowheight=line + max(2, line // 5))
 
     def raise_tags(self):
         """Puts the links over the styles of the text, and the matches and the
@@ -814,7 +820,8 @@ class App:
 
     def restore_sash(self):
         if self.toc_shown():
-            self.paned.sashpos(0, self.settings["gui.contents_width"])
+            self.paned.sashpos(0, round(self.settings["gui.contents_width"]
+                                        * scale_factor(self.root)))
 
     def toggle_toc(self, save: bool = True):
         if save:

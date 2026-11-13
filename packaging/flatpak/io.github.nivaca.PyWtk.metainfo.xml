@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- SPDX-License-Identifier: CC0-1.0 -->
+<!-- The description of py-wtk for software centres (Flatpak). The first
+     release must be the program's version: tools/bundle-flatpak.py checks. -->
+<component type="desktop-application">
+  <id>io.github.nivaca.PyWtk</id>
+  <name>py-wtk</name>
+  <summary>Look up words in the English Wiktionary</summary>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <developer id="io.github.nivaca">
+    <name>Nicolas Vaughan</name>
+  </developer>
+  <description>
+    <p>
+      py-wtk shows whole entries of the English Wiktionary without a web
+      browser: etymology, pronunciation, definitions with examples and
+      quotations, inflection tables, synonyms, translations and the rest, for
+      any language, with only the languages and sections you choose.
+    </p>
+    <p>It comes as three programs that share one engine:</p>
+    <ul>
+      <li>a desktop window, with a table of contents, links between entries, find in page, and light and dark modes;</li>
+      <li>a full-screen terminal interface (py-wtk-tui);</li>
+      <li>a command-line tool that prints an entry (py-wtk).</li>
+    </ul>
+    <p>
+      The content comes from en.wiktionary.org and its authors, under the
+      CC BY-SA 4.0 licence. py-wtk is not an official project of Wiktionary
+      or of the Wikimedia Foundation.
+    </p>
+  </description>
+  <launchable type="desktop-id">io.github.nivaca.PyWtk.desktop</launchable>
+  <provides>
+    <binary>py-wtk</binary>
+    <binary>py-wtk-tui</binary>
+    <binary>py-wtk-gui</binary>
+  </provides>
+  <categories>
+    <category>Office</category>
+    <category>Dictionary</category>
+  </categories>
+  <keywords>
+    <keyword>dictionary</keyword>
+    <keyword>Wiktionary</keyword>
+    <keyword>etymology</keyword>
+  </keywords>
+  <url type="homepage">https://github.com/nivaca/py-wtk</url>
+  <url type="bugtracker">https://github.com/nivaca/py-wtk/issues</url>
+  <url type="vcs-browser">https://github.com/nivaca/py-wtk</url>
+  <screenshots>
+    <screenshot type="default">
+      <caption>The window, light</caption>
+      <image>https://raw.githubusercontent.com/nivaca/py-wtk/main/docs/img/gui_light.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>The window, dark</caption>
+      <image>https://raw.githubusercontent.com/nivaca/py-wtk/main/docs/img/gui_dark.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>The terminal interface</caption>
+      <image>https://raw.githubusercontent.com/nivaca/py-wtk/main/docs/img/tui.png</image>
+    </screenshot>
+  </screenshots>
+  <content_rating type="oars-1.1"/>
+  <requires>
+    <internet>always</internet>
+  </requires>
+  <releases>
+    <release version="1.10" date="2026-11-13">
+      <description>
+        <p>Copying and pasting: an Edit menu in the window, and the key y in the terminal interface copies the whole entry. The first Flatpak of the program. The contents pane follows the size of the text.</p>
+      </description>
+    </release>
+    <release version="1.9" date="2026-11-13"/>
+    <release version="1.8" date="2026-11-12"/>
+    <release version="1.7" date="2026-11-11"/>
+  </releases>
+</component>

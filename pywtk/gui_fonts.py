@@ -112,10 +112,15 @@ def fit_scaling(root):
                 f.configure(size=max(1, round(-int(f.cget("size")) / BASE_SCALING)))
 
 
+def scale_factor(root) -> float:
+    """How many of ROOT's pixels make one pixel at 96 DPI (1 or more)."""
+    fit_scaling(root)
+    return max(1.0, float(root.tk.call("tk", "scaling")) / BASE_SCALING)
+
+
 def scaled(root, geometry: str) -> str:
     """GEOMETRY ("WIDTHxHEIGHT", in pixels at 96 DPI) for ROOT's scaling."""
-    fit_scaling(root)
-    factor = max(1.0, float(root.tk.call("tk", "scaling")) / BASE_SCALING)
+    factor = scale_factor(root)
     w, h = (int(n) for n in geometry.split("x"))
     return f"{round(w * factor)}x{round(h * factor)}"
 
