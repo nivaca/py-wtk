@@ -204,6 +204,7 @@ Teclas principales (pulsa `?` dentro del programa para ver la lista completa):
 | `L`                  | lista de los enlaces de la pantalla, para abrir uno |
 | `x` `T`              | mostrar / ocultar citas y tablas                |
 | `o`                  | abrir la página en el navegador                 |
+| `y` o `F7`           | copiar toda la entrada, como texto simple       |
 | `S`                  | ajustes                                         |
 | `q`                  | salir                                           |
 
@@ -211,6 +212,11 @@ También funciona la rueda del ratón, y se puede hacer clic en el índice y en 
 (en azul). Los enlaces a otras entradas se abren en el programa, al principio de la
 entrada; los demás (Wikipedia, los apéndices del Wiktionary, otros diccionarios…), en el
 navegador.
+
+`y` copia la entrada con el programa del sistema para el portapapeles (`wl-copy` en Wayland,
+`xclip` o `xsel` en X11, `pbcopy` en macOS, `clip` en Windows); si no hay ninguno, le pide
+a la terminal que lo haga (OSC 52, también dentro de tmux si este lo permite), cosa que
+hacen muchas terminales.
 
 ## Ventana de escritorio: `py-wtk-gui`
 
@@ -227,6 +233,10 @@ py-wtk-gui rosa --dark --size 13       # oscuro y más grande solo esta vez (tam
   barra de estado dice adónde lleva cada enlace.
 - **Doble clic en cualquier palabra de la entrada para buscarla.** El botón derecho abre un
   menú con «Look up», «Copy» y «Select all».
+- Un menú *Edit* con Cut, Copy y Paste (cortar, copiar y pegar: `Ctrl+X`, `Ctrl+C`,
+  `Ctrl+V`): actúan sobre el cuadro de búsqueda, el de las lenguas y el de buscar en la
+  página, y Copy también sobre el texto seleccionado en la entrada. Lo que no se puede
+  hacer en ese momento aparece en gris.
 - Índice en árbol: haz clic en una sección para ir a ella; se actualiza al desplazarte.
 - Selector con las lenguas de la página actual; también se puede escribir `en,la`.
 - Casillas para mostrar u ocultar las citas y las tablas.

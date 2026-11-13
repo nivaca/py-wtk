@@ -17,6 +17,7 @@ import curses
 import os
 import sys
 
+from . import clipboard
 from .api import NetworkError, NotFound, entry_target, page_url, search, suggestions
 from .common import (History, add_lookup_args, cache_summary, clear_cache, network_message,
                      no_language_message, open_in_browser, render_languages)
@@ -58,6 +59,7 @@ HELP = [
     ("T", "show / hide tables"),
     ("o", "open the page in a web browser"),
     ("r", "reload"),
+    ("y  F7", "copy the whole entry (as plain text)"),
     ("?", "this help"),
     ("S", "settings"),
     ("q", "quit"),
@@ -528,7 +530,7 @@ class App:
                              [(c, curses.A_BOLD if k == 0 else 0) for c in l], w)
 
         # status line
-        hints = "/ look up  f find  c contents  L links  b back  x quotes  ? help  q quit"
+        hints = "/ look up  f find  c contents  L links  b back  x quotes  y copy  ? help  q quit"
         msg = self.message or hints
         self.put(h - 1, 0, [(c, curses.A_DIM if not self.message else curses.A_BOLD)
                             for c in msg], w - 1)
@@ -901,6 +903,8 @@ class App:
         elif not self.page:
             if k == "l":
                 self.change_lang()
+            elif k in ("y", curses.KEY_F7):
+                self.message = "There is no entry to copy yet."
             return
         elif k in (curses.KEY_DOWN, "j", "\x0e"):
             self.scroll(1)
@@ -968,6 +972,15 @@ class App:
         elif k == "r":
             self.client.forget(self.page.word)
             self.open(self.page.word, push=False, top=self.top)
+        elif k in ("y", curses.KEY_F7):
+            self.copy_entry()
+
+    def copy_entry(self):
+        """The whole entry, as shown (all its languages and sections, without
+        colours or links), into the clipboard."""
+        text = "\n".join(l.rstrip() for l in self.page.view.plain).strip("\n") + "\n"
+        self.message = "Copied the entry." if clipboard.copy(text) else \
+            "Copied the entry, if the terminal lets programs use the clipboard."
 
     def change_lang(self):
         val = self.prompt("Languages (e.g. en, la, Spanish, all): ", self.lang)

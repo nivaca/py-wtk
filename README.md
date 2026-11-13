@@ -201,10 +201,15 @@ the entry. Main keys (press `?` inside the program for the complete list):
 | `L`                  | list of the links on the screen, for open one   |
 | `x` `T`              | show / hide quotations, tables                  |
 | `o`                  | open the page in the web browser                |
+| `y` or `F7`          | copy the whole entry, as plain text             |
 | `S`                  | settings                                        |
 | `q`                  | quit                                            |
 
 The mouse wheel works also, and you can click in the contents and on the links (in blue).
+
+`y` copies the entry through the clipboard program of the system (`wl-copy` in Wayland,
+`xclip` or `xsel` in X11, `pbcopy` in macOS, `clip` in Windows); if there is none, it asks
+the terminal to do it (OSC 52, also inside tmux when it allows it), which many terminals do.
 The links to other entries open in the program, at the top of the entry; the others
 (Wikipedia, the appendices of Wiktionary, other dictionaries…) in the web browser.
 
@@ -223,6 +228,9 @@ py-wtk-gui rosa --dark --size 13       # dark and bigger only this time (--light
   says where a link goes.
 - **Double-click on any word of the entry for look it up.** The right button gives a menu
   with "Look up", "Copy" and "Select all".
+- An *Edit* menu with Cut, Copy and Paste (`Ctrl+X`, `Ctrl+C`, `Ctrl+V`): they act on the
+  search box, the languages and the find box, and Copy also on the text selected in the
+  entry. What can't be done at the moment is greyed out.
 - Contents tree: click on a section for go there; it follows you when you scroll.
 - Language selector with the languages of the actual page; you can also write `en,la`.
 - Checkboxes for show or hide quotations and tables.

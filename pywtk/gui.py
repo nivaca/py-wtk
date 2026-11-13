@@ -57,6 +57,7 @@ Ctrl+L          Focus the search box (Down: suggestions)
 Click a link    Open it (links out of Wiktionary: in the browser)
 Double-click    Look up the clicked word
 Ctrl+F  F3      Find in page / next match (Shift+F3: previous)
+Ctrl+X C V      Cut / copy / paste (the Edit menu)
 Alt+←  Alt+→    Back / forward
 F5              Reload
 Ctrl+ +  Ctrl+ − Larger / smaller text (Ctrl+0: the usual size)
@@ -64,6 +65,27 @@ Ctrl+,          Settings
 Ctrl+Q          Quit
 
 Click an item in the contents pane to jump to it."""
+
+
+def selected(widget) -> bool:
+    """Whether WIDGET (an entry or a text) has text selected."""
+    try:
+        if isinstance(widget, tk.Text):
+            return bool(widget.tag_ranges("sel"))
+        return isinstance(widget, (tk.Entry, ttk.Entry)) and widget.selection_present()
+    except tk.TclError:
+        return False
+
+
+def editable(widget) -> bool:
+    """Whether text can be typed in WIDGET (not in the entry, which is only
+    read, nor in a list to choose from)."""
+    if not isinstance(widget, (tk.Entry, ttk.Entry, tk.Text)):
+        return False
+    try:
+        return str(widget.cget("state")) == "normal"
+    except tk.TclError:
+        return False
 
 
 class App:
@@ -202,6 +224,15 @@ class App:
         f.add_command(label="Quit", accelerator="Ctrl+Q", command=self.quit)
         m.add_cascade(label="File", menu=f)
 
+        #  (the keys are Tk's own, in every box of text)
+        e = tk.Menu(m, tearoff=False)
+        e.config(postcommand=lambda: self.edit_states(e))
+        for name, letter, event in (("Cut", "X", "<<Cut>>"), ("Copy", "C", "<<Copy>>"),
+                                    ("Paste", "V", "<<Paste>>")):
+            e.add_command(label=name, accelerator=f"Ctrl+{letter}",
+                          command=lambda ev=event: self.edit_event(ev))
+        m.add_cascade(label="Edit", menu=e)
+
         g = tk.Menu(m, tearoff=False)
         g.add_command(label="Back", accelerator="Alt+Left", command=self.back)
         g.add_command(label="Forward", accelerator="Alt+Right", command=self.forward)
@@ -233,6 +264,44 @@ class App:
                             "Universidad de los Andes, Bogotá, Colombia."))
         m.add_cascade(label="Help", menu=h)
         self.root.config(menu=m)
+
+    # The Edit menu acts on the box with the keyboard's focus (the search box,
+    # the languages, or "Find in page"), or, for copying, on the entry, where
+    # text is selected but not typed.
+    def edit_widget(self, event: str):
+        """The widget that EVENT (<<Cut>>, <<Copy>> or <<Paste>>) would act on,
+        or None if it cannot now."""
+        try:
+            focus = self.root.focus_get()
+        except (KeyError, tk.TclError):     # (in a combobox's list)
+            focus = None
+        if event == "<<Copy>>":
+            for widget in (focus, self.text):
+                if selected(widget):
+                    return widget
+            return None
+        if not editable(focus):
+            return None
+        if event == "<<Cut>>":
+            return focus if selected(focus) else None
+        try:
+            return focus if self.root.clipboard_get() else None
+        except tk.TclError:                 # (the clipboard is empty)
+            return None
+
+    def edit_states(self, menu: tk.Menu):
+        """Greys out what the Edit menu cannot do now."""
+        for i, event in enumerate(("<<Cut>>", "<<Copy>>", "<<Paste>>")):
+            menu.entryconfig(i, state="normal" if self.edit_widget(event) else "disabled")
+
+    def edit_event(self, event: str):
+        widget = self.edit_widget(event)
+        if widget is None:
+            return
+        if widget is self.text and event == "<<Copy>>":
+            self.copy()                     # (the entry is read-only: its own copy)
+        else:
+            widget.event_generate(event)
 
     def build_ui(self):
         root = self.root

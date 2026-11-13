@@ -16,6 +16,7 @@ Modules:
     render  turning an entry into wrapped, styled text lines (and JSON)
     common  what the three programs share: arguments, messages, history,
             following links, the disk cache
+    clipboard copying to the system clipboard from the terminal interface
     cli     the `py-wtk` command
     tui     the `py-wtk-tui` curses interface
     gui     the `py-wtk-gui` Tkinter interface
