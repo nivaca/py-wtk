@@ -3,21 +3,19 @@
 # Copyright (C) 2026 Nicolas Vaughan <nivaca@fastmail.com>
 # This file is part of py-wtk. See the LICENSE file for details.
 """Publishes a release of py-wtk on GitHub (with gh) and on Codeberg (with
-tea): the tag vVERSION (the version of pywtk/__init__.py), with the zip, the
-AppImage and the Flatpak attached, and (--rpm) the RPM, also published on Copr.
+tea): the tag vVERSION (the version of pywtk/__init__.py), with the zip and the
+AppImage attached, and (--rpm) the RPM, also published on Copr.
 
     python3 tools/release.py [--redo] [--notes TEXT | --notes-file FILE]
-                             [--no-build] [--no-appimage] [--no-flatpak]
-                             [--rpm [--no-copr]]
+                             [--no-build] [--no-appimage] [--rpm [--no-copr]]
                              [--only github|codeberg] [--dry-run] [--yes]
 
 In order, each step only if it is needed:
 
 1. checks that the repository is on main, with nothing left to commit,
    and that gh and tea are installed;
-2. makes the zip, the AppImage and the Flatpak in dist/ (tools/bundle-zip.py,
-   tools/bundle-appimage.py and tools/bundle-flatpak.py), unless --no-build
-   (then those in dist/ are used);
+2. makes the zip and the AppImage in dist/ (tools/bundle-zip.py and
+   tools/bundle-appimage.py), unless --no-build (then those in dist/ are used);
    with --rpm, also the signed RPM and its public key in build/rpm/
    (packaging/build-rpm.sh --sign; gpg asks for the passphrase);
 3. tags HEAD as vVERSION.  If the tag is there already on another commit,
@@ -61,7 +59,6 @@ from pywtk.version import NAME, VERSION  # noqa: E402
 TAG = f"v{VERSION}"
 ZIP = os.path.join("dist", f"{NAME}-v.{VERSION}.zip")
 APPIMAGE = os.path.join("dist", f"{NAME}-v.{VERSION}-x86_64.AppImage")
-FLATPAK = os.path.join("dist", f"{NAME}-v.{VERSION}-x86_64.flatpak")
 BRANCH = "main"
 #  Where tea runs: outside the repository, as tea reads the remote's fetch
 #  address there (which origin may not have) even when --repo is given
@@ -199,8 +196,6 @@ class Release:
         self.plan("Make the zip", sys.executable, "tools/bundle-zip.py")
         if APPIMAGE in self.files:
             self.plan("Make the AppImage", sys.executable, "tools/bundle-appimage.py")
-        if FLATPAK in self.files:
-            self.plan("Make the Flatpak", sys.executable, "tools/bundle-flatpak.py")
         if RPM_KEY in self.files:
             self.plan("Make the signed RPM", "packaging/build-rpm.sh", "--sign")
 
@@ -308,8 +303,7 @@ class Release:
     def __call__(self):
         args = self.args
         self.forges = [args.only] if args.only else ["github", "codeberg"]
-        self.files = [ZIP] + ([] if args.no_appimage else [APPIMAGE]) + \
-            ([] if args.no_flatpak else [FLATPAK])
+        self.files = [ZIP] + ([] if args.no_appimage else [APPIMAGE])
         if args.rpm:
             self.files += [rpm(), RPM_KEY]
         self.check()
@@ -326,8 +320,8 @@ class Release:
 def main(argv=None):
     parser = argparse.ArgumentParser(
         prog="tools/release.py",
-        description=f"Publish {TAG} on GitHub and Codeberg, with the zip, the AppImage, "
-                    "the Flatpak and (--rpm) the RPM, which goes to Copr too.")
+        description=f"Publish {TAG} on GitHub and Codeberg, with the zip, the AppImage "
+                    "and (--rpm) the RPM, which goes to Copr too.")
     parser.add_argument("--redo", action="store_true",
                         help=f"move {TAG} to HEAD if it is on another commit (here and "
                              "on the forges), and replace the files of the releases")
@@ -338,7 +332,6 @@ def main(argv=None):
     parser.add_argument("--no-build", action="store_true",
                         help="use the zip and AppImage in dist/, without making them again")
     parser.add_argument("--no-appimage", action="store_true", help="without the AppImage")
-    parser.add_argument("--no-flatpak", action="store_true", help="without the Flatpak")
     parser.add_argument("--rpm", action="store_true",
                         help="also the signed RPM and its public key "
                              "(packaging/build-rpm.sh --sign), and a Copr build of it")

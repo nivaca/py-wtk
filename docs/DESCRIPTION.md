@@ -131,9 +131,10 @@ releases: it uses the Python and Tk of the system, and puts the three
 programs in the `PATH` and the applications menu.  The AppImage's Tk is
 older (8.6) and ignores the scaling that the desktop gives to X11
 programs (`Xft.dpi`), so on a scaled hi-res display its window came out
-very small; since 1.7 the window reads that scaling itself.  Since
-1.10 there is a Flatpak too, for any Linux: its runtime's Python has no
-Tk, so Tcl/Tk and Python's `_tkinter` are built into it.  A
+very small; since 1.7 the window reads that scaling itself.  1.10
+came also as a Flatpak, for any Linux (its runtime's Python has no Tk,
+so Tcl/Tk and Python's `_tkinter` were built into it), which was given
+up after it.  A
 small module, `version.py`, is read before the rest of the program, and
 it stays readable by old versions of Python, so a Python too old gets a
 clear message instead of an error.
