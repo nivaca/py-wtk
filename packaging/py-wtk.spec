@@ -20,7 +20,7 @@ BuildRequires:  desktop-file-utils
 # For %check, which loads the window's module.
 BuildRequires:  python3-tkinter
 
-Requires:       python3 >= 3.13
+Requires:       python3 >= 3.15
 # The window (py-wtk-gui) is Tk.
 Requires:       python3-tkinter
 Requires:       hicolor-icon-theme

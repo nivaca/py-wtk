@@ -50,7 +50,7 @@ out of sight, with settings of its own, and writes them to `docs/img/` (see
 
 ## Requirements
 
-- Python 3.13 or newer. It was tested with Python 3.13 and 3.15.
+- Python 3.15 or newer.
 - Nothing more for `py-wtk` and `py-wtk-tui`: only the standard library is used; there are
   no packages to install with pip.
 - For `py-wtk-gui` you need Tkinter. In many Linux distributions it comes in a separate
@@ -83,7 +83,7 @@ sudo dnf install py-wtk
 
 The releases also have the RPM (`py-wtk-VERSION-1.fcNN.noarch.rpm`), signed, with its
 public key (`RPM-GPG-KEY-py-wtk`, to import once): `sudo rpm --import RPM-GPG-KEY-py-wtk`
-and then `sudo dnf install ./py-wtk-*.noarch.rpm`. It works in any Fedora with Python 3.13
+and then `sudo dnf install ./py-wtk-*.noarch.rpm`. It works in any Fedora with Python 3.15
 or newer, whatever the `fc` number. Or build it from the folder of the program (a git clone):
 
 ```sh

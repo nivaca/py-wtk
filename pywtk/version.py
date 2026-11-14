@@ -17,7 +17,7 @@ from . import __version__
 
 NAME = "py-wtk"
 VERSION = __version__
-MIN_PYTHON = (3, 13)
+MIN_PYTHON = (3, 15)
 
 #  The program's folder (that of the launchers, above this package)
 HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

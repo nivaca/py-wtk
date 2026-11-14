@@ -45,10 +45,9 @@ copr-cli whoami          # should print: nivaca
 ** 4. Create the project
 List the chroots (build targets) on offer, then create the project:
 #+begin_src sh
-copr-cli list-chroots | grep -E '^fedora-(4[4-9]|rawhide)-x86_64'
+copr-cli list-chroots | grep -E '^fedora-(4[5-9]|rawhide)-x86_64'
 
 copr-cli create py-wtk \
-  --chroot fedora-44-x86_64 \
   --chroot fedora-45-x86_64 \
   --chroot fedora-rawhide-x86_64 \
   --description "Look up words in the English Wiktionary: a command line, a terminal interface and a window." \

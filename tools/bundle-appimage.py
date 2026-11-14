@@ -59,8 +59,8 @@ ARCH = "x86_64"
 
 #  The Python put in the AppImage (python-appimage has one release per
 #  version, with an AppImage per manylinux; the older the manylinux, the
-#  older the systems it runs on).  py-wtk needs 3.13 or later.
-PYTHON = "3.13"
+#  older the systems it runs on).  py-wtk needs 3.15 or later.
+PYTHON = "3.15"
 PYTHON_RELEASES = "https://api.github.com/repos/niess/python-appimage/" \
     "releases/tags/python{version}"
 MANYLINUX = ("manylinux2014", "manylinux_2_28")
@@ -210,7 +210,7 @@ def download(url: str, path: str) -> str:
 
 
 def python_url(version: str) -> str:
-    """The URL of the Python AppImage of VERSION (3.13 ...), for the oldest
+    """The URL of the Python AppImage of VERSION (3.15 ...), for the oldest
     manylinux there is one for."""
     url = PYTHON_RELEASES.format(version=version)
     request = urllib.request.Request(url, headers={"Accept": "application/vnd.github+json"})
