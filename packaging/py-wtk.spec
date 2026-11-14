@@ -5,7 +5,7 @@
 # Build with packaging/build-rpm.sh, which makes the source tarball.
 
 Name:           py-wtk
-Version:        1.12
+Version:        1.13
 Release:        1%{?dist}
 Summary:        Look up words in the English Wiktionary
 
@@ -97,6 +97,9 @@ PYTHONPATH=%{buildroot}%{_datadir}/%{name} %{python3} -c \
 %{_datadir}/icons/hicolor/*/apps/py-wtk.*
 
 %changelog
+* Sat Nov 14 2026 Nicolas Vaughan <nivaca@fastmail.com> - 1.13-1
+- Python 3.15 or later is needed; no longer built for Fedora 44
+
 * Sat Nov 14 2026 Nicolas Vaughan <nivaca@fastmail.com> - 1.12-1
 - Python 3.13 or later is needed
 

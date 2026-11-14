@@ -1,5 +1,11 @@
 # Release notes
 
+## 1.13
+
+**Python 3.15 or later.** py-wtk now needs Python 3.15 (it was 3.13). The AppImage carries
+its own Python 3.15. The RPM is built for Fedora 45 and later, which have it; Fedora 44,
+whose Python is 3.14, is no longer built, and keeps the version it has.
+
 ## 1.12
 
 **Python 3.13 or later.** py-wtk now needs Python 3.13 (it was 3.11), as the other
