@@ -122,7 +122,7 @@ now shown without them, keeping its colours.
 5. Distribution
 ---------------
 
-py-wtk needs Python 3.11 or later (for `tomllib`) and nothing else, so
+py-wtk needs Python 3.13 or later and nothing else, so
 it can be used from a zip or a clone of the repository, with three small
 launchers to link into the `PATH`.  For Linux there is also an AppImage,
 which carries its own Python: download, make it executable, run.  Since
@@ -175,7 +175,7 @@ interface (`cli.py`, `tui.py`, `gui.py`, with `gui_theme.py` and
 Testing
 -------
 
-The program was tested with Python 3.11 (the oldest it supports) and
+The program was tested with Python 3.13 (the oldest it supports) and
 with Python 3.15, in Linux.  `tools/screenshots.py` runs the three
 programs as a user does (the window in light and dark mode), with
 settings and a cache of their own, and the screenshots of the README

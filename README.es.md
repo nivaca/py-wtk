@@ -49,8 +49,7 @@ sin mostrarlo, con ajustes propios, y las guarda en `docs/img/` (véase
 
 ## Requisitos
 
-- Python 3.11 o posterior (usa `tomllib` para leer los ajustes). Se ha probado con
-  Python 3.11 y 3.15.
+- Python 3.13 o posterior. Se ha probado con Python 3.13 y 3.15.
 - Nada más para `py-wtk` y `py-wtk-tui`: solo se usa la biblioteca estándar, no hay que
   instalar paquetes con pip.
 - Para `py-wtk-gui` hace falta Tkinter. En muchas distribuciones de Linux viene en un
@@ -84,7 +83,7 @@ sudo dnf install py-wtk
 Las versiones publicadas traen también el RPM (`py-wtk-VERSIÓN-1.fcNN.noarch.rpm`), firmado,
 con su clave pública (`RPM-GPG-KEY-py-wtk`, que se importa una vez):
 `sudo rpm --import RPM-GPG-KEY-py-wtk` y luego `sudo dnf install ./py-wtk-*.noarch.rpm`.
-Funciona en cualquier Fedora con Python 3.11 o posterior, sea cual sea el número `fc`. O
+Funciona en cualquier Fedora con Python 3.13 o posterior, sea cual sea el número `fc`. O
 genéralo desde la carpeta del programa (un clon de git):
 
 ```sh

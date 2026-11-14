@@ -59,7 +59,7 @@ ARCH = "x86_64"
 
 #  The Python put in the AppImage (python-appimage has one release per
 #  version, with an AppImage per manylinux; the older the manylinux, the
-#  older the systems it runs on).  py-wtk needs 3.11 or later.
+#  older the systems it runs on).  py-wtk needs 3.13 or later.
 PYTHON = "3.13"
 PYTHON_RELEASES = "https://api.github.com/repos/niess/python-appimage/" \
     "releases/tags/python{version}"
