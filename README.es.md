@@ -106,7 +106,7 @@ ln -s ~/py-wtk/py-wtk-gui  ~/.local/bin/
 ```
 
 Los lanzadores encuentran el paquete `pywtk` que está a su lado, incluso cuando se los llama
-a través de un enlace. También se puede ejecutar la herramienta de línea de comandos con
+mediante un enlace. También se puede ejecutar la herramienta de línea de comandos con
 `python3 -m pywtk PALABRA` desde dentro de la carpeta.
 
 **En el menú de aplicaciones:** `py-wtk-install.py` añade la ventana, la versión de terminal
@@ -169,8 +169,8 @@ mayúsculas ni números, de modo que `etymology` coincide con "Etymology 1" y "E
 Si la palabra no existe, el programa propone palabras parecidas. Si la entrada no cabe en la
 pantalla, se abre en `less` (o en tu `$PAGER`).
 
-Los enlaces de la entrada son hipervínculos: en los terminales que los admiten (casi todos
-los modernos, y `less`) se puede hacer clic en ellos, normalmente con `Ctrl` pulsado. Otros
+Los enlaces de la entrada son hipervínculos: en las terminales que los admiten (casi todas
+las modernas, y `less`) se puede hacer clic en ellos, normalmente con `Ctrl` pulsado. Otros
 paginadores (como `most` o `more`) no pueden mostrarlos, así que en ellos la entrada se
 muestra sin enlaces. Si tu terminal los muestra como caracteres extraños, desactiva el
 ajuste `cli.links`.
@@ -297,7 +297,7 @@ Qué se puede cambiar:
 | `cli.color`                     | `auto`  | `auto`, `always` o `never`                       |
 | `cli.pager`                     | `auto`  | `auto`, `always` o `never`                       |
 | `cli.pager_command`             | (vacío) | paginador que se usa en lugar de `$PAGER` / `less` |
-| `cli.links`                     | `true`  | enlaces en los que se puede hacer clic, en los terminales que lo admiten |
+| `cli.links`                     | `true`  | enlaces en los que se puede hacer clic, en las terminales que lo admiten |
 | `cli.brief`                     | `false` | modo breve siempre (entonces `-F` da la entrada completa) |
 | `tui.show_contents`             | `true`  | el panel del índice                              |
 | `tui.contents_width`            | `30`    | su anchura, en columnas                          |
@@ -380,7 +380,7 @@ icons/        los iconos (Linux, macOS, Windows)
 
 ## Para desarrolladores
 
-Seis scripts, en `tools/`, generan los paquetes, publican las versiones, toman las capturas y
+Cinco scripts, en `tools/`, generan los paquetes, publican las versiones, toman las capturas y
 generan los iconos. No van dentro de los paquetes.
 
 | Script                     | Qué hace                                                       |

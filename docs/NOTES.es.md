@@ -127,9 +127,9 @@ existen, las notas al pie y los enlaces de edición no son activos.
   colores). Un clic los abre (con el ratón activado), y la nueva tecla `L` muestra la lista
   de los enlaces de la pantalla, para abrir uno con el teclado.
 - **Línea de comandos (`py-wtk`):** los enlaces son hipervínculos (OSC 8), en los que se
-  puede hacer clic en la mayoría de los terminales modernos y en `less`. Solo con colores,
+  puede hacer clic en la mayoría de las terminales modernas y en `less`. Solo con colores,
   de modo que `--json`, `--no-color` y la salida hacia otros programas no cambian. Nuevo
-  ajuste `cli.links` (activado por defecto), para desactivarlos en los terminales que los
+  ajuste `cli.links` (activado por defecto), para desactivarlos en las terminales que los
   muestran como caracteres extraños.
 
 El texto de las entradas es el mismo que antes.
@@ -139,7 +139,7 @@ puede llevar también opciones, como `rosa -l la`; las opciones dadas junto a `-
 para todas). `Ctrl-D` o `Ctrl-C` lo terminan.
 
 **Instalador.** `py-wtk-install.py` añade también `py-wtk (CLI)` al menú de aplicaciones,
-que abre `py-wtk -i` en un terminal. Las entradas están ahora solo en las categorías
+que abre `py-wtk -i` en una terminal. Las entradas están ahora solo en las categorías
 Oficina y Diccionario, para que no aparezcan dos veces en algunos menús. Vuelve a
 ejecutarlo para tener la nueva entrada.
 

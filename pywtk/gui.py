@@ -173,7 +173,7 @@ class App:
 
     def quit(self):
         if self.toc_shown():
-            #  (kept in pixels at 96 DPI, as the window's other sizes)
+            #  (kept in pixels at 96 DPI, like the window's other sizes)
             width = round(self.paned.sashpos(0) / scale_factor(self.root))
             if 120 <= width <= 700 and width != self.settings["gui.contents_width"]:
                 self.save_setting("gui.contents_width", width)

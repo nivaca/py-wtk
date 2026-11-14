@@ -12,7 +12,7 @@ no hidden files or folders (.git ...), none of what is made while the
 program runs or is edited (__pycache__, .bak and .tmp files ...), and none
 of what is in its folder but not part of it (the bundles in dist/, and
 tools/, with the scripts that make them and publish them).  The launchers keep their
-permission to run.  It has also COMMIT, the commit it was made from (for
+permission to run.  It also has COMMIT, the commit it was made from (for
 --version and "About").
 """
 

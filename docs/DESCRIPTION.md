@@ -13,7 +13,7 @@ stages.
 
 It is meant for people who look up words often: students and teachers
 of languages (Latin, Greek, Spanish, English ...), translators,
-philologists, and anyone who wants the information of Wiktionary without
+philologists, and anyone who wants the information in Wiktionary without
 the clutter and the slowness of the web page.  py-wtk is free software,
 under the GNU General Public License, version 3 or later.  The content
 of the entries comes from Wiktionary and its contributors, under the
@@ -37,12 +37,12 @@ tables, synonyms, derived and related terms, descendants, translations,
 references and further reading.
 
 The inflection tables (declensions and conjugations) are kept aligned,
-with the width that each character really takes in the terminal
+with the width that each character actually takes in the terminal
 (`text.py`).  The big entries, like *house*, keep their translations in a
 separate page (`house/translations`); py-wtk downloads that page too and
 puts the translations back in their place.
 
-A page of Wiktionary usually has many languages.  py-wtk shows all of
+A Wiktionary page usually has many languages.  py-wtk shows all of
 them by default, but the user can choose only some (`-l la`, or
 `-l la,es,it`), put some first, show only some sections
 (`-o etymology`), hide others, or ask for a brief view with only the
@@ -56,7 +56,7 @@ terminal interface (`py-wtk-tui`, with `curses`), and a desktop window
 (`py-wtk-gui`, with Tk, from the standard library).  All three turn an
 entry into text with the same code (`render.py`), so an entry looks the
 same, and contains the same things, in all of them.  The command line
-can give the entry also as structured JSON (`--json`), for other
+can also give the entry as structured JSON (`--json`), for other
 programs, and it has an interactive mode (`-i`) that asks for one word
 after another.
 
@@ -76,44 +76,44 @@ settings folder of each system (`~/.config/py-wtk/` in Linux).  It can
 be edited from the command line (`--set`, `--unset`), from a settings
 screen in the terminal interface, from a settings window in the GUI, or
 by hand.  `settings.py` says, in one place, what each setting is, its
-type and its default value.  The programs write in the file only the
-settings that you change, over the file as it is in that moment, so if
+type and its default value.  The programs write to the file only the
+settings that you change, over the file as it is at that moment, so if
 the window and the terminal interface are open at the same time, one
 does not undo the changes of the other.
 
 The versions called *py-wkt* kept their settings in another folder,
 first in a `settings.ini` and then in a `config.toml`.  py-wtk reads
-them one time, takes them to the new folder and renames the old file
+them once, moves them to the new folder and renames the old file
 `*.old`.
 
 The downloaded pages are kept compressed in the cache folder of the
 system for one day (`general.cache_days`), so looking up the same word
-again is instant and does not load the servers of Wiktionary.  When
+again is instant and puts no load on Wiktionary's servers.  When
 Wiktionary answers "Too Many Requests" (or is busy for a moment), the
-program waits, as long as the answer asks if it says so, and tries again
+program waits (as long as the answer asks, if it says) and tries again
 by itself.
 
 4. Links
 --------
 
-In 1.2 the links of an entry started to work in the three programs.  A
+In 1.2 the links of an entry started to work in all three programs.  A
 link to another entry opens it in the program; the other links
 (Wikipedia, the appendices of Wiktionary, other dictionaries) open in
 the web browser.  Links to pages that do not exist yet, footnotes and
 edit links are not clickable.
 
-In the window the links have the colour of links and get underlined
+In the window the links have the link colour and get underlined
 under the mouse, and dragging over one selects the text without opening
 it.  In the terminal interface they are blue, a click opens them, and
-the key `L` lists the links on the screen, for opening one with the
+the key `L` lists the links on the screen, to open one with the
 keyboard.  In the command line they are terminal hyperlinks (OSC 8),
 which most modern terminals and `less` make clickable; they are written
-only with colours, so `--json`, `--no-color` and the output to other
+only along with colours, so `--json`, `--no-color` and the output to other
 programs do not change.
 
 Two corrections came later.  In 1.5, a link to another entry opens it
 at the top, with all the languages of the filter: before, it jumped to
-the language of the link, and it seemed that the filter had changed.
+the language of the link, and the filter seemed to have changed.
 In 1.6, a long entry opened in a pager other than `less` (for example
 `PAGER=most`) showed its links as stray characters such as `^[]8;;`.
 Only `less` can show these links, so with any other pager the entry is
@@ -131,40 +131,40 @@ releases: it uses the Python and Tk of the system, and puts the three
 programs in the `PATH` and the applications menu.  The AppImage's Tk is
 older (8.6) and ignores the scaling that the desktop gives to X11
 programs (`Xft.dpi`), so on a scaled hi-res display its window came out
-very small; since 1.7 the window reads that scaling itself.  1.10
-came also as a Flatpak, for any Linux (its runtime's Python has no Tk,
-so Tcl/Tk and Python's `_tkinter` were built into it), which was given
-up after it.  A
-small module, `version.py`, is read before the rest of the program, and
-it stays readable by old versions of Python, so a Python too old gets a
-clear message instead of an error.
+very small; since 1.7 the window reads that scaling itself.  1.10 also
+came as a Flatpak, for any Linux (its runtime's Python has no Tk, so
+Tcl/Tk and Python's `_tkinter` were built into it), which was dropped
+afterwards.  A small module, `version.py`, is read before the rest of
+the program, and it stays readable by old versions of Python, so a
+Python that is too old gets a clear message instead of an error.
 
 `py-wtk-install.py` adds the programs, with their icon, to the
 applications menu in Linux, the Start menu in Windows or
-`~/Applications` in macOS, writing only in the folders of the user, so
+`~/Applications` in macOS, writing only to the user's folders, so
 no administrator rights are needed.  `--only-gui` adds only the window,
 and `--uninstall` removes the entries and the icons that the installer
 made, and nothing else.
 
 The scripts in `tools/` make the zip and the AppImage, publish the
 releases on GitHub and Codeberg (with the RPM, which `packaging/`
-builds, and which goes to Copr too), take the screenshots of the README, and
-make all the icons again from one SVG (since 1.8 the bracketed `pW`,
-drawn with shapes rather than a font, on a teal tile).  The zip and the AppImage carry
-the commit they were made from, which `--version` and *About* show.
+builds, and which goes to Copr too), take the screenshots of the
+README, and make all the icons again from one SVG (since 1.8 the
+bracketed `pW`, drawn with shapes rather than a font, on a teal tile).
+The zip and the AppImage carry the commit they were made from, which
+`--version` and *About* show.
 
 6. One place for what is shared
 -------------------------------
 
 At first each program had its own copy of several things: the history
 of Back and Forward, the handling of the links, the messages, the disk
-cache, the common options.  In 1.4 they went to one module,
+cache, the common options.  In 1.4 they moved into one module,
 `common.py`, so the three programs say the same thing in the same way
 ("2 pages, 192.7 KB" everywhere, the same message for a language that
 the page does not have, the same message for a network error).  The
 entries are shown exactly as before.
 
-The package `pywtk/` has now 16 modules, organised in layers:
+The package `pywtk/` now has 16 modules, organised in layers:
 downloading and cache (`api.py`), HTML parsing (`dom.py`), text and
 colours (`text.py`), languages and sections (`entry.py`), rendering to
 text or JSON (`render.py`), settings (`config.py`, `settings.py`), what
@@ -180,7 +180,7 @@ with Python 3.15, in Linux.  `tools/screenshots.py` runs the three
 programs as a user does (the window in light and dark mode), with
 settings and a cache of their own, and the screenshots of the README
 come from it; they were checked by eye, and in 1.6 they were taken
-again.  There are not yet automated tests.
+again.  There are no automated tests yet.
 
 For installation and full usage instructions, see the
 [README](../README.md); the changes of each version are in

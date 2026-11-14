@@ -23,7 +23,7 @@ class Style:
     """ANSI styling; with enabled=False every method returns text unchanged.
     The TUI turns these ANSI codes into curses attributes.  Links are OSC 8
     hyperlinks (made only if `links`, by default when enabled), which
-    terminals that know them make clickable and the TUI and the window
+    terminals that support them make clickable and the TUI and the window
     follow."""
 
     def __init__(self, enabled: bool, links: bool | None = None):

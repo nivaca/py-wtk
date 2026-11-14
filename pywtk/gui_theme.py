@@ -127,7 +127,7 @@ class Theme:
         self.colours = colours
         self._options(colours)
         self._recolour(self.root, colours)
-        #  (for what has colours of its own, as the entry's text)
+        #  (for what has colours of its own, such as the entry's text)
         self.root.event_generate("<<ThemeChanged>>", when="tail")
 
     def _styles(self, d: dict):
@@ -156,7 +156,7 @@ class Theme:
         s.map("Accent.TButton", background=hover, lightcolor=hover, darkcolor=hover,
               bordercolor=[("disabled", d["border"]), ("focus", d["focus"])],
               foreground=[("disabled", d["disabled"])])
-        #  a button with no border (as the dark mode one), only a shade under
+        #  a button with no border (like the dark mode one), only a shade under
         #  the mouse
         s.configure("Flat.Toolbutton", background=d["background"], relief="flat",
                     borderwidth=0)

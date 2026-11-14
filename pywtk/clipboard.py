@@ -2,8 +2,8 @@
 # Copyright (C) 2026 Nicolas Vaughan <nivaca@fastmail.com>
 # This file is part of py-wtk. See the LICENSE file for details.
 """Copying to the system clipboard, for the terminal interface (tui.py):
-curses cannot reach it, so the text goes through the program of each system
-for it, or else through the terminal itself (OSC 52)."""
+curses cannot reach it, so the text goes through each system's clipboard
+program, or else through the terminal itself (OSC 52)."""
 
 from __future__ import annotations
 
