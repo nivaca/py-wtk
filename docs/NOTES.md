@@ -1,5 +1,11 @@
 # Release notes
 
+## 1.12
+
+**Python 3.13 or later.** py-wtk now needs Python 3.13 (it was 3.11), as the other
+programs of the author do. The AppImage carries its own Python 3.13 and every supported
+Fedora has a newer one, so only those who run the zip with an older Python are affected.
+
 ## 1.11
 
 **No Flatpak any more.** Releases carry again only the zip, the AppImage and the RPM: the

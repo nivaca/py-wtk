@@ -1,5 +1,12 @@
 # Notas de las versiones
 
+## 1.12
+
+**Python 3.13 o posterior.** py-wtk necesita ahora Python 3.13 (antes, 3.11), como los
+demás programas del autor. El AppImage lleva su propio Python 3.13 y todas las Fedora
+compatibles tienen uno más reciente, así que solo afecta a quien use el zip con un Python
+más antiguo.
+
 ## 1.11
 
 **Ya no hay Flatpak.** Las versiones vuelven a traer solo el zip, el AppImage y el RPM: el
