@@ -1,4 +1,4 @@
-# py-wtk 1.10: descripción
+# py-wtk 1.11: descripción
 
 *[Read in English](DESCRIPTION.md)*
 

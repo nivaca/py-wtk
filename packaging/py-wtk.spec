@@ -5,7 +5,7 @@
 # Build with packaging/build-rpm.sh, which makes the source tarball.
 
 Name:           py-wtk
-Version:        1.10
+Version:        1.11
 Release:        1%{?dist}
 Summary:        Look up words in the English Wiktionary
 
@@ -97,6 +97,9 @@ PYTHONPATH=%{buildroot}%{_datadir}/%{name} %{python3} -c \
 %{_datadir}/icons/hicolor/*/apps/py-wtk.*
 
 %changelog
+* Sat Nov 14 2026 Nicolas Vaughan <nivaca@fastmail.com> - 1.11-1
+- No Flatpak any more; plainer documentation and comments
+
 * Fri Nov 13 2026 Nicolas Vaughan <nivaca@fastmail.com> - 1.10-1
 - Copying and pasting: an Edit menu in the window, y in the terminal interface
 

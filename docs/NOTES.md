@@ -1,5 +1,14 @@
 # Release notes
 
+## 1.11
+
+**No Flatpak any more.** Releases carry again only the zip, the AppImage and the RPM: the
+Flatpak of 1.10 is no longer made, and it was also taken off that release.
+
+**Plainer documentation.** The READMEs, the descriptions, these notes and the comments of
+the code read more plainly and idiomatically, in English and in Spanish; the program itself
+is the same.
+
 ## 1.10
 
 **Copying and pasting.** The window has an *Edit* menu with Cut, Copy and Paste

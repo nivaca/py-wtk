@@ -1,5 +1,14 @@
 # Notas de las versiones
 
+## 1.11
+
+**Ya no hay Flatpak.** Las versiones vuelven a traer solo el zip, el AppImage y el RPM: el
+Flatpak de la 1.10 ya no se hace, y también se quitó de esa versión.
+
+**Documentación más llana.** Los README, las descripciones, estas notas y los comentarios
+del código se leen de forma más llana y natural, en inglés y en español; el programa es el
+mismo.
+
 ## 1.10
 
 **Copiar y pegar.** La ventana tiene un menú *Edit* con Cut, Copy y Paste (cortar, copiar y
